@@ -9,7 +9,7 @@ jobs:
     #runs-on: ubuntu-latest-m
     runs-on:
       group: large
-      labels: ubuntu
+      labels: ubuntu-8core
 
     steps:
       - uses: actions/checkout@v4
