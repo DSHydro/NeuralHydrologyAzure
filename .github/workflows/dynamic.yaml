@@ -1,0 +1,29 @@
+name: TestDynamic
+
+on:
+  workflow_dispatch:
+    inputs:
+      runner_type:
+        description: 'Select the runner type'
+        required: true
+        default: 'ubuntu-latest'
+        type: choice
+        options:
+          - ubuntu-latest
+          - ubuntu-8core
+          - T4GPU
+
+jobs:
+  test-dynamic:
+    timeout-minutes: 5
+    runs-on: ${{ github.event.inputs.runner_type }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Report Runner Specs
+        run: |
+          echo "Running on ${{ github.event.inputs.runner_type }}"
+          lscpu
+          free -h
+          df -h
