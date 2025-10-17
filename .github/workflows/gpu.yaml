@@ -1,0 +1,22 @@
+name: TestGPU
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-gpu:
+    timeout-minutes: 5
+    runs-on: T4GPU
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Report Runner Specs
+        run: |
+          lscpu
+          free -h
+          df -h
+
+      - name: Report GPU specs
+        run: |
+          nvidia-smi
