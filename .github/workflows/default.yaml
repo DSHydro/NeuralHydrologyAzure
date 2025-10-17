@@ -8,10 +8,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest] # macos-latest
     steps:
       - uses: actions/checkout@v5
 
+     # TODO: lscpu not on mac, use something else
       - name: Report Runner Specs
         run: |
           lscpu
