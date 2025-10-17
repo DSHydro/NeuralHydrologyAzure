@@ -6,7 +6,9 @@ on:
 jobs:
   test-large:
     timeout-minutes: 5
-    runs-on: ubuntu-latest-m
+    #runs-on: ubuntu-latest-m
+    runs-on:
+      group: larger
 
     steps:
       - uses: actions/checkout@v4

@@ -1,0 +1,19 @@
+name: TestDefaults
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Report Runner Specs
+        run: |
+          lscpu
+          free -h
+          df -h
