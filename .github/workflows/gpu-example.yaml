@@ -5,7 +5,8 @@ on:
 
 jobs:
   run-tutorial-gpu:
-    timeout-minutes: 5
+    # Cancel if runs take longer than 2 hours
+    timeout-minutes: 120
     runs-on: T4GPU
 
     steps:
@@ -21,7 +22,7 @@ jobs:
         run: |
           nvidia-smi
 
-      - uses: prefix-dev/setup-pixi@v0.9.1
+      - uses: prefix-dev/setup-pixi@v0.9.2
         with:
             manifest-path: pyproject.toml
             cache: true
