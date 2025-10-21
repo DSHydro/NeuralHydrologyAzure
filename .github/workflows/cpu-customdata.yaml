@@ -62,7 +62,6 @@ jobs:
         run: |
             pixi run unzip-data
             pixi run rename-data
-            rm input-data.zip
 
       - name: Run Training
         id: train
