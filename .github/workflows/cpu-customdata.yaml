@@ -37,6 +37,7 @@ jobs:
             key: ${{ runner.os }}-input-data
 
       # Wget raises error code 1 if file already exists, overriding with || true
+      # This uses INPUT_DATA_URL environment variable
       - name: Download Tutorial Data
         run: |
             pixi run get-data || true

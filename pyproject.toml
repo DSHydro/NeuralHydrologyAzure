@@ -27,7 +27,7 @@ train-cpu = "nh-run train --config-file 1_basin.yml --gpu -1"
 eval = "nh-run evaluate" #--run-dir runs/test_run_2010_222905
 visualize = "python visualize.py" # runs/test_run_2010_222905
 
-get-data = { cmd = "wget --progress=dot:giga -nc $INPUT_DATA_URL -O input-data.zip"}
+get-data = { cmd = 'wget --progress=dot:giga -nc "$INPUT_DATA_URL" -O input-data.zip'}
 unzip-data = 'unzip -q -n input-data.zip -d ./data/'
 rename-data = 'mv ./data/basin_dataset_public_v1p2 ./data/CAMELS_US/'
 
