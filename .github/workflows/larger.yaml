@@ -12,7 +12,7 @@ jobs:
       labels: ubuntu-8core
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Report Runner Specs
         run: |
