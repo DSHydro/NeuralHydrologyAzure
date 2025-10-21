@@ -38,18 +38,18 @@ jobs:
         run: |
             pixi run train-cpu
             OUTDIR=`ls runs/`
-            echo "outdir=./runs/$OUTDIR" >> $GITHUB_OUTPUT
+            echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
 
       - name: Run Evaluation
         run: |
-            pixi run eval --run-dir ${{ steps.train.outputs.outdir }}
+            pixi run eval --run-dir ./runs/${{ steps.train.outputs.outdir }}
 
       - name: Visualize Results
         run: |
-            pixi run visualize ${{ steps.train.outputs.outdir }}
+            pixi run visualize ./runs/${{ steps.train.outputs.outdir }}
 
       - name: Upload Results
         uses: actions/upload-artifact@v4
         with:
             name: ${{ steps.train.outputs.outdir }}
-            path: ${{ steps.train.outputs.outdir }}
+            path: ./runs/${{ steps.train.outputs.outdir }}
