@@ -19,6 +19,8 @@ test_end_date: "30/09/1999"
 # which GPU (id) to use [in format of cuda:0, cuda:1 etc, or cpu, mps or None]
 device: cuda:0
 
+verbose: 0
+
 # --- Validation configuration ---------------------------------------------------------------------
 
 # specify after how many epochs to perform validation
