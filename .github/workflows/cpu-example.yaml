@@ -1,10 +1,10 @@
-name: NeuronalHydrology Tutorial
+name: NeuralHydrology Tutorial
 
 on:
   workflow_dispatch:
 
 jobs:
-  package:
+  run-tutorial:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,28 +26,28 @@ jobs:
             path: basin_timeseries_v1p2_metForcing_obsFlow.zip
             key: ${{ runner.os }}-tutorial-data
 
-      - name: Setup Tutorial Data
-        run: |
-            pixi run unzip-camels-data
-            pixi run rename-camels-data
+    #   - name: Setup Tutorial Data
+    #     run: |
+    #         pixi run unzip-camels-data
+    #         pixi run rename-camels-data
 
-      - name: Run Training
-        id: train
-        run: |
-            pixi run train-cpu
-            OUTDIR=`ls runs/`
-            echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
+    #   - name: Run Training
+    #     id: train
+    #     run: |
+    #         pixi run train-cpu
+    #         OUTDIR=`ls runs/`
+    #         echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
 
-      - name: Run Evaluation
-        run: |
-            pixi run evaluate-cpu --run-dir ${{ steps.train.outputs.outdir }}
+    #   - name: Run Evaluation
+    #     run: |
+    #         pixi run eval --run-dir ${{ steps.train.outputs.outdir }}
 
-      - name: Visualize Results
-        run: |
-            pixi run visualize-runs ${{ steps.train.outputs.outdir }}
+    #   - name: Visualize Results
+    #     run: |
+    #         pixi run visualize ${{ steps.train.outputs.outdir }}
 
-      - name: Upload Results
-        uses: actions/upload-artifact@v4
-        with:
-            name: ${{ steps.train.outputs.outdir }}
-            path: runs/${{ steps.train.outputs.outdir }}
+    #   - name: Upload Results
+    #     uses: actions/upload-artifact@v4
+    #     with:
+    #         name: ${{ steps.train.outputs.outdir }}
+    #         path: runs/${{ steps.train.outputs.outdir }}
