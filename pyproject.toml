@@ -53,6 +53,7 @@ ruff = ">=0.14.1,<0.15"
 [tool.pixi.environments]
 gpu = ["gpu"]
 
+# NOTE: github actions default T4 runner has CUDA Version: 12.8
 [tool.pixi.feature.gpu]
 platforms = ["linux-64"]
-dependencies = {cuda = ">=13.0.2,<14"}
+dependencies = {cuda = ">=12,<13"}
