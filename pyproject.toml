@@ -21,9 +21,8 @@ platforms = ["osx-arm64", "linux-64"]
 [tool.pixi.tasks]
 # just make sure CLI command runs
 #get-camels-data = 'wget --progress=dot -nc https://zenodo.org/records/15529996/files/basin_timeseries_v1p2_metForcing_obsFlow.zip'
-# Zenodo can be super slow (<1MB/s), so made a copy of this for testing
-get-camels-data = 'wget --progress=dot:giga -nc https://zenodo.org/records/15529996/files/basin_timeseries_v1p2_metForcing_obsFlow.zip'
-unzip-camels-data = 'unzip -q -n basin_timeseries_v1p2_metForcing_obsFlow.zip -d ./data/'
+get-camels-data = { cmd = "wget --progress=dot:giga -nc $URL -O data.zip", env = { URL = "https://zenodo.org/records/15529996/files/basin_timeseries_v1p2_metForcing_obsFlow.zip" } }
+unzip-camels-data = 'unzip -q -n data.zip -d ./data/'
 rename-camels-data = 'mv ./data/basin_dataset_public_v1p2 ./data/CAMELS_US/'
 #get-config = "wget -nc https://raw.githubusercontent.com/neuralhydrology/neuralhydrology/refs/heads/master/examples/01-Introduction/1_basin.yml"
 train-cpu = "nh-run train --config-file 1_basin.yml --gpu -1"

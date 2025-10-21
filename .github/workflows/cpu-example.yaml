@@ -16,38 +16,38 @@ jobs:
             cache: true
             frozen: true
 
-      - name: Download Tutorial Data
-        run: |
-            pixi run get-camels-data
-
       - name: Cache Tutorial Data
         uses: actions/cache@v4
         with:
             path: basin_timeseries_v1p2_metForcing_obsFlow.zip
             key: ${{ runner.os }}-tutorial-data
 
-    #   - name: Setup Tutorial Data
-    #     run: |
-    #         pixi run unzip-camels-data
-    #         pixi run rename-camels-data
+      - name: Download Tutorial Data
+        run: |
+            pixi run get-camels-data
 
-    #   - name: Run Training
-    #     id: train
-    #     run: |
-    #         pixi run train-cpu
-    #         OUTDIR=`ls runs/`
-    #         echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
+      - name: Setup Tutorial Data
+        run: |
+            pixi run unzip-camels-data
+            pixi run rename-camels-data
 
-    #   - name: Run Evaluation
-    #     run: |
-    #         pixi run eval --run-dir ${{ steps.train.outputs.outdir }}
+      - name: Run Training
+        id: train
+        run: |
+            pixi run train-cpu
+            OUTDIR=`ls runs/`
+            echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
 
-    #   - name: Visualize Results
-    #     run: |
-    #         pixi run visualize ${{ steps.train.outputs.outdir }}
+      - name: Run Evaluation
+        run: |
+            pixi run eval --run-dir ${{ steps.train.outputs.outdir }}
 
-    #   - name: Upload Results
-    #     uses: actions/upload-artifact@v4
-    #     with:
-    #         name: ${{ steps.train.outputs.outdir }}
-    #         path: runs/${{ steps.train.outputs.outdir }}
+      - name: Visualize Results
+        run: |
+            pixi run visualize ${{ steps.train.outputs.outdir }}
+
+      - name: Upload Results
+        uses: actions/upload-artifact@v4
+        with:
+            name: ${{ steps.train.outputs.outdir }}
+            path: runs/${{ steps.train.outputs.outdir }}
