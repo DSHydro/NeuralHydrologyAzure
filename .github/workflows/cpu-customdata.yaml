@@ -1,0 +1,62 @@
+name: NeuralHydrology Tutorial
+
+on:
+  workflow_dispatch:
+    inputs:
+      zipped_data_url:
+        description: 'URL to the zipped input data folder'
+        required: true
+        type: string
+        default: 'https://zenodo.org/records/15529996/files/basin_timeseries_v1p2_metForcing_obsFlow.zip'
+
+jobs:
+  train:
+    env:
+      INPUT_DATA_URL: ${{ github.event.inputs.zipped_data_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: prefix-dev/setup-pixi@v0.9.2
+        with:
+            manifest-path: pyproject.toml
+            cache: true
+            frozen: true
+
+      - name: Cache Data
+        uses: actions/cache@v4
+        with:
+            path: input-data.zip
+            key: ${{ runner.os }}-input-data
+
+      # Wget raises error code 1 if file already exists, overriding with || true
+      - name: Download Tutorial Data
+        run: |
+            pixi run get-data || true
+
+      - name: Setup Tutorial Data
+        run: |
+            pixi run unzip-data
+            pixi run rename-data
+
+      - name: Run Training
+        id: train
+        run: |
+            pixi run train-cpu
+            OUTDIR=`ls runs/`
+            echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
+
+      - name: Run Evaluation
+        run: |
+            pixi run eval --run-dir ./runs/${{ steps.train.outputs.outdir }}
+
+      - name: Visualize Results
+        run: |
+            pixi run visualize ./runs/${{ steps.train.outputs.outdir }}
+
+      - name: Upload Results
+        uses: actions/upload-artifact@v4
+        with:
+            name: ${{ steps.train.outputs.outdir }}
+            path: ./runs/${{ steps.train.outputs.outdir }}
