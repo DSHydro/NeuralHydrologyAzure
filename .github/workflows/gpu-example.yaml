@@ -1,0 +1,66 @@
+name: NeuralHydrology Tutorial GPU
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-tutorial-gpu:
+    timeout-minutes: 5
+    runs-on: T4GPU
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Report Runner Specs
+        run: |
+          lscpu
+          free -h
+          df -h
+
+      - name: Report GPU specs
+        run: |
+          nvidia-smi
+
+      - uses: prefix-dev/setup-pixi@v0.9.1
+        with:
+            manifest-path: pyproject.toml
+            cache: true
+            frozen: true
+
+      - name: Cache Tutorial Data
+        uses: actions/cache@v4
+        with:
+            path: basin_timeseries_v1p2_metForcing_obsFlow.zip
+            key: ${{ runner.os }}-tutorial-data
+
+     # Wget raises error code 1 if file already exists, so continue-on-error: true
+      - name: Download Tutorial Data
+        continue-on-error: true
+        run: |
+            pixi run get-camels-data
+
+      - name: Setup Tutorial Data
+        run: |
+            pixi run unzip-camels-data
+            pixi run rename-camels-data
+
+      - name: Run Training
+        id: train
+        run: |
+            pixi run train-gpu
+            OUTDIR=`ls runs/`
+            echo "outdir=./runs/$OUTDIR" >> $GITHUB_OUTPUT
+
+      - name: Run Evaluation
+        run: |
+            pixi run eval --run-dir ${{ steps.train.outputs.outdir }}
+
+      - name: Visualize Results
+        run: |
+            pixi run visualize ${{ steps.train.outputs.outdir }}
+
+      - name: Upload Results
+        uses: actions/upload-artifact@v4
+        with:
+            name: ${{ steps.train.outputs.outdir }}
+            path: ${{ steps.train.outputs.outdir }}
