@@ -38,7 +38,7 @@ jobs:
         run: |
             pixi run train-cpu
             OUTDIR=`ls runs/`
-            echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
+            echo "outdir=./runs/$OUTDIR" >> $GITHUB_OUTPUT
 
       - name: Run Evaluation
         run: |
