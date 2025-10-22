@@ -15,7 +15,9 @@ on:
         type: choice
         options:
           - ubuntu-latest
+          - ubuntu-4core
           - ubuntu-8core
+          - ubuntu-16core
 
 jobs:
   train:
