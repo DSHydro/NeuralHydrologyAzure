@@ -43,3 +43,40 @@ Apparently "login with a service principal secret" works for both GitHub-hosted 
 So follow these instructions:
 
 https://github.com/Azure/login?tab=readme-ov-file#login-with-a-service-principal-secret
+
+Test uploading a file to storage container
+```bash
+az storage blob upload \
+    --account-name dshydro\
+    --container-name accelerator2025 \
+    --name README.md \
+    --file README.md
+```
+
+```bash
+az storage blob download \
+    --account-name dshydro\
+    --container-name accelerator2025 \
+    --name README.md \
+    --file /tmp/README.md
+```
+
+```bash
+az storage blob list \
+    --account-name dshydro \
+    --container-name accelerator2025 \
+    --output table \
+    --auth-mode login
+```
+
+Test locally
+
+```
+az login --service-principal -u XXXX --tenant XXXX -p XXXX --allow-no-subscriptions
+```
+
+Check role permissions
+```
+az role assignment list --assignee-object-id 0e4b1a91-dc85-4f8f-822e-561eb0ce806e  --all --include-inherited -o table
+```
+
