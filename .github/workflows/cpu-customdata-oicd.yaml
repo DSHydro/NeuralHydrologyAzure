@@ -60,11 +60,12 @@ jobs:
       - name: Download Data from Azure Blob Storage
         run: |
             az storage blob download \
+                --no-progress \
                 --auth-mode login \
                 --account-name dshydro\
                 --container-name accelerator2025 \
                 --name ${{ github.event.inputs.zipped_data_blob }} \
-                --file input-data.zip
+                --file input-data.zip > /dev/null
 
       - name: Setup Tutorial Data
         run: |

@@ -61,6 +61,7 @@ jobs:
       - name: Download Data from Azure Blob Storage
         run: |
             az storage blob download \
+                --no-progress \
                 --auth-mode login \
                 --account-name dshydro\
                 --container-name accelerator2025 \
