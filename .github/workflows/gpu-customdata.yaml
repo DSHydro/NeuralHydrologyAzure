@@ -51,11 +51,12 @@ jobs:
         run: |
             pixi run -e gpu python -c "import torch; print(torch.cuda.is_available())"
 
-      - name: Cache Data
-        uses: actions/cache@v4
-        with:
-            path: input-data.zip
-            key: ${{ runner.os }}-input-data
+      # TODO: scope cache key with workflow name? otherwise can end up with incorrect data
+      # - name: Cache Data
+      #   uses: actions/cache@v4
+      #   with:
+      #       path: input-data.zip
+      #       key: ${{ runner.os }}-input-data
 
       - name: Download Data from Azure Blob Storage
         run: |
