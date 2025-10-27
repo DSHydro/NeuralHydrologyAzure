@@ -66,11 +66,11 @@ jobs:
                 --account-name dshydro\
                 --container-name accelerator2025 \
                 --name ${{ github.event.inputs.zipped_data_blob }} \
-                --file input-data.zip
+                --file input-data.zip > /dev/null
 
       - name: Setup Tutorial Data
         run: |
-            unzip input-data.zip
+            unzip -q -n input-data.zip -d ./data/
             mv ./data/basin_dataset_public_v1p2 ./data/CAMELS_US/
 
       - name: Run Training
