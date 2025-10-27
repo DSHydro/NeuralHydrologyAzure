@@ -22,3 +22,17 @@ Microsoft Planetary Computer = westeurope (Netherlands)
 
 "Standard NCADS_A100_v4 Family vCPUs are high in demand in westus2 for AI for Good Sponsorship. Consider alternative VM-series or regions. If you still want to continue, file a new support request and expect some delays."
 
+## Mounting Azure resources to the runner
+
+Or launching runners in a specific region?
+
+https://docs.github.com/en/organizations/managing-organization-settings/configuring-private-networking-for-github-hosted-runners-in-your-organization
+
+
+### OIDC Connect
+
+https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure-openid-connect
+
+Option 2: User-assigned managed identity
+
+* Scope to 'AIForGood' Environment
