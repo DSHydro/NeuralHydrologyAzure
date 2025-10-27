@@ -22,8 +22,17 @@ jobs:
             echo $TEST_ENV_VAR
 
       - name: Azure CLI script
+        continue-on-error: true
         uses: azure/cli@v2
         with:
           azcliversion: latest
           inlineScript: |
             az storage container list --account-name dshydro --query "[].name"
+
+      - name: Test from Azure Blob Storage
+        run: |
+            az storage blob copy start \
+            --account-name dshydro \
+            --source-container accelerator2025 \
+            --source-blob basin_timeseries_v1p2_metForcing_obsFlow.zip \
+            .
