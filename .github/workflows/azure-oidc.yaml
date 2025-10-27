@@ -22,7 +22,7 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az account show
+            az role assignment list --query "[].roleDefinitionName"
 
       - name: Check Environment Variables
         env:
