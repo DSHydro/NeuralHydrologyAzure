@@ -31,8 +31,15 @@ https://docs.github.com/en/organizations/managing-organization-settings/configur
 
 ### OIDC Connect
 
-https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure-openid-connect
+These instructions seem most up-to-date:
 
-Option 2: User-assigned managed identity
+https://github.com/Azure/login?tab=readme-ov-file#login-with-openid-connect-oidc-recommended
 
-* Scope to 'AIForGood' Environment
+Compared to https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-azure
+
+
+Apparently "login with a service principal secret" works for both GitHub-hosted and self-hosted runners... but "user or system-assigned managed identies" only work on self-hosted runners.
+
+So follow these instructions:
+
+https://github.com/Azure/login?tab=readme-ov-file#login-with-a-service-principal-secret
