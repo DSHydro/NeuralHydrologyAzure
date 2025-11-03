@@ -1,6 +1,17 @@
 name: Connect to Azure VPC
 # https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-azure
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      runner_type:
+        description: 'Select the runner type'
+        required: true
+        default: 'ubuntu-2cpu-x64'
+        type: choice
+        options:
+          - ubuntu-2cpu-x64
+          - ubuntu-2cpu-arm
+          - ubuntu-4cpu-arm
 
 permissions:
   id-token: write
@@ -8,8 +19,15 @@ permissions:
 jobs:
   download:
     environment: AIForGood
-    runs-on: ubuntu-2core-arm
+    runs-on: ${{ github.event.inputs.runner_type }}
     steps:
+      - name: Report Runner Specs
+        run: |
+          curl -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2017-12-01"
+          lscpu
+          free -h
+          df -h
+
       # - name: AZ CLI login
       #   uses: azure/login@v2.3.0
       #   with:
