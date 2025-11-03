@@ -17,6 +17,8 @@ jobs:
           - ubuntu-2cpu-x64
           - ubuntu-4cpu-x64
           - ubuntu-8cpu-x64
+          - ubuntu-16cpu-x64
+          - ubuntu-32cpu-x64
           # - ubuntu-2cpu-arm
           # - ubuntu-4cpu-arm
           # - ubuntu-8cpu-arm
@@ -38,13 +40,15 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
 
       - name: Test download from Azure Blob Storage
+        # 3 GB: basin_timeseries_v1p2_metForcing_obsFlow.zip
+        # 22.5 GB: data.zip
         run: |
           time az storage blob download \
               --auth-mode login \
               --account-name dshydro\
               --container-name accelerator2025 \
               --name basin_timeseries_v1p2_metForcing_obsFlow.zip \
-              --file basin_timeseries_v1p2_metForcing_obsFlow.zip
+              --file input-data.zip
 
       - name: Setup Tutorial Data
         run: |
