@@ -10,6 +10,14 @@ jobs:
     environment: AIForGood
     runs-on: ubuntu-latest
     steps:
+      - name: Report Runner Specs
+      # curl command gives location and vm size {"compute":{"location":"westus2", "vmSize":"Standard_D2ads_v5" and
+        run: |
+          curl -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2017-12-01"
+          lscpu
+          free -h
+          df -h
+
       - name: AZ CLI login
         uses: azure/login@v2.3.0
         with:
