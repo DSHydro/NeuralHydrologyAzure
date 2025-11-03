@@ -16,9 +16,9 @@ jobs:
           - ubuntu-2cpu-x64
           - ubuntu-4cpu-x64
           - ubuntu-8cpu-x64
-          - ubuntu-2cpu-arm
-          - ubuntu-4cpu-arm
-          - ubuntu-8cpu-arm
+          # - ubuntu-2cpu-arm
+          # - ubuntu-4cpu-arm
+          # - ubuntu-8cpu-arm
     steps:
       - name: Report Runner Specs
       # curl command gives location and vm size {"compute":{"location":"westus2", "vmSize":"Standard_D2ads_v5" and
@@ -38,9 +38,17 @@ jobs:
 
       - name: Test download from Azure Blob Storage
         run: |
-            time az storage blob download \
-                --auth-mode login \
-                --account-name dshydro\
-                --container-name accelerator2025 \
-                --name README.md \
-                --file /tmp/README.md
+          time az storage blob download \
+              --auth-mode login \
+              --account-name dshydro\
+              --container-name accelerator2025 \
+              --name basin_timeseries_v1p2_metForcing_obsFlow.zip.md \
+              --file basin_timeseries_v1p2_metForcing_obsFlow.zip
+
+      - name: Setup Tutorial Data
+        run: |
+          time unzip -q -n input-data.zip -d ./data/
+
+      - name: Report Final Data Size
+        run: |
+          du -sh data/
