@@ -21,14 +21,14 @@ platforms = ["osx-arm64", "linux-64"]
 #get-camels-data = 'wget --progress=dot -nc https://zenodo.org/records/15529996/files/basin_timeseries_v1p2_metForcing_obsFlow.zip'
 get-camels-data = { cmd = "wget --progress=dot:giga -nc $URL -O basin_timeseries_v1p2_metForcing_obsFlow.zip", env = { URL = "https://zenodo.org/records/15529996/files/basin_timeseries_v1p2_metForcing_obsFlow.zip" } }
 unzip-camels-data = 'unzip -q -n basin_timeseries_v1p2_metForcing_obsFlow.zip -d ./data/'
-rename-camels-data = 'mv ./data/basin_dataset_public_v1p2 ./data/CAMELS_US/'
+# rename-camels-data = 'mv ./data/basin_dataset_public_v1p2 ./data/CAMELS_US/'
 #get-config = "wget -nc https://raw.githubusercontent.com/neuralhydrology/neuralhydrology/refs/heads/master/examples/01-Introduction/1_basin.yml"
 train-cpu = "nh-run train --config-file config.yml --gpu -1" #1_basin.yml --gpu -1"
 eval = "nh-run evaluate" #--run-dir runs/test_run_2010_222905
 visualize = "python visualize.py" # runs/test_run_2010_222905
 get-data = { cmd = 'wget --progress=dot:giga -nc "$INPUT_DATA_URL" -O input-data.zip'}
 unzip-data = 'unzip -q -n input-data.zip -d ./data/'
-rename-data = 'mv ./data/basin_dataset_public_v1p2 ./data/CAMELS_US/'
+# rename-data = 'mv ./data/basin_dataset_public_v1p2 ./data/CAMELS_US/'
 
 
 [tool.pixi.feature.gpu.tasks]
