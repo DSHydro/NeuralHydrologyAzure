@@ -1,0 +1,46 @@
+name: Benchmark Azure Blob Download
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  download:
+    environment: AIForGood
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-4core
+          - ubuntu-2cpu-x64
+          - ubuntu-4cpu-x64
+          - ubuntu-8cpu-x64
+          - ubuntu-2cpu-arm
+          - ubuntu-4cpu-arm
+          - ubuntu-8cpu-arm
+    steps:
+      - name: Report Runner Specs
+      # curl command gives location and vm size {"compute":{"location":"westus2", "vmSize":"Standard_D2ads_v5" and
+        run: |
+          curl -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2017-12-01"
+          lscpu
+          free -h
+          df -h
+
+      - name: AZ CLI login
+        uses: azure/login@v2.3.0
+        with:
+          # NOTE: allow-no-subscripts needed if only giving scoped permissions to specific container
+          allow-no-subscriptions: true
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+
+      - name: Test download from Azure Blob Storage
+        run: |
+            time az storage blob download \
+                --auth-mode login \
+                --account-name dshydro\
+                --container-name accelerator2025 \
+                --name README.md \
+                --file /tmp/README.md
