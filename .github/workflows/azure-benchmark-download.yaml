@@ -10,6 +10,7 @@ jobs:
     environment: AIForGood
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os:
           - ubuntu-4core
@@ -42,7 +43,7 @@ jobs:
               --auth-mode login \
               --account-name dshydro\
               --container-name accelerator2025 \
-              --name basin_timeseries_v1p2_metForcing_obsFlow.zip.md \
+              --name basin_timeseries_v1p2_metForcing_obsFlow.zip \
               --file basin_timeseries_v1p2_metForcing_obsFlow.zip
 
       - name: Setup Tutorial Data
