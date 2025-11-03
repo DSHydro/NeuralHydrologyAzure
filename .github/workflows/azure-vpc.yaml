@@ -1,0 +1,54 @@
+name: Connect to Azure VPC
+# https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-azure
+on: [workflow_dispatch]
+
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  download:
+    environment: AIForGood
+    runs-on: ubuntu-2core-arm
+    steps:
+      # - name: AZ CLI login
+      #   uses: azure/login@v2.3.0
+      #   with:
+      #     # NOTE: allow-no-subscripts needed if only giving scoped permissions to specific container
+      #     allow-no-subscriptions: true
+      #     client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+
+      # NOTE: 'auth-mode login' needed to avoid warnings and errors about not finding credentials
+      - name: List Files in Container
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az storage blob list \
+                --auth-mode login \
+                --account-name dshydro \
+                --container-name accelerator2025 \
+                --output table
+
+      - name: Check Environment Variables
+        env:
+            TEST_ENV_VAR: ${{ vars.TEST_ENV_VAR }}
+        run: |
+            echo $TEST_ENV_VAR
+
+      - name: Test download from Azure Blob Storage
+        run: |
+            az storage blob download \
+                --auth-mode login \
+                --account-name dshydro\
+                --container-name accelerator2025 \
+                --name README.md \
+                --file /tmp/README.md
+
+      - name: List all Storage Containers
+        continue-on-error: true
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az storage container list --auth-mode login --account-name dshydro --query "[].name"
