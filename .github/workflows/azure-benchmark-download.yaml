@@ -48,7 +48,7 @@ jobs:
               --account-name dshydro\
               --container-name accelerator2025 \
               --name basin_timeseries_v1p2_metForcing_obsFlow.zip \
-              --file input-data.zip
+              --file input-data.zip > /dev/null
 
       - name: Setup Tutorial Data
         run: |
