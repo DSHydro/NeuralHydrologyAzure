@@ -28,45 +28,31 @@ jobs:
           free -h
           df -h
 
-      # - name: AZ CLI login
-      #   uses: azure/login@v2.3.0
-      #   with:
-      #     # NOTE: allow-no-subscripts needed if only giving scoped permissions to specific container
-      #     allow-no-subscriptions: true
-      #     client-id: ${{ secrets.AZURE_CLIENT_ID }}
-      #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-
-      # NOTE: 'auth-mode login' needed to avoid warnings and errors about not finding credentials
-      - name: List Files in Container
-        uses: azure/cli@v2
+      - name: AZ CLI login
+        uses: azure/login@v2.3.0
         with:
-          azcliversion: latest
-          inlineScript: |
-            az storage blob list \
-                --auth-mode login \
-                --account-name dshydro \
-                --container-name accelerator2025 \
-                --output table
-
-      - name: Check Environment Variables
-        env:
-            TEST_ENV_VAR: ${{ vars.TEST_ENV_VAR }}
-        run: |
-            echo $TEST_ENV_VAR
+          # NOTE: allow-no-subscripts needed if only giving scoped permissions to specific container
+          allow-no-subscriptions: true
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
 
       - name: Test download from Azure Blob Storage
         run: |
-            az storage blob download \
-                --auth-mode login \
-                --account-name dshydro\
-                --container-name accelerator2025 \
-                --name README.md \
-                --file /tmp/README.md
+          az storage blob download \
+              --auth-mode login \
+              --account-name dshydro\
+              --container-name accelerator2025 \
+              --name README.md \
+              --file /tmp/README.md
 
-      - name: List all Storage Containers
-        continue-on-error: true
-        uses: azure/cli@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az storage container list --auth-mode login --account-name dshydro --query "[].name"
+
+      - name: Test mount Azure File Share
+        env:
+          AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
+        run: |
+          sudo mount -t cifs //dshydro.file.core.windows.net/neurohydro /tmp/data -o vers=3.0,username=dshydro,password=$AZURE_STORAGE_ACCOUNT_KEY,dir_mode=0777,file_mode=0777,serverino
+
+      - name: Test read/write data
+        run: |
+          ls -tlrh /tmp/data
+          echo "hello from github actions" > /tmp/data/hello.txt
