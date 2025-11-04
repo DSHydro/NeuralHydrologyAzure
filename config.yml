@@ -36,8 +36,8 @@ static_attributes:
 - gwt_cm_sav
 - ero_kh_sav
 # - lit_cl_smj
-epochs: 30
-experiment_name: newwy_UYbasins_h128_do0.4_seq_length365_30epochs
+epochs: 3
+experiment_name: 200_basins_h128_do0.4_seq_length365_3epochs
 head: regression
 hidden_size: 128
 initial_forget_bias: 3
@@ -83,3 +83,5 @@ validate_every: 1
 validation_basin_file: basins.txt
 validation_end_date: 30/08/2007
 validation_start_date: 01/09/2005
+
+verbose: 0
