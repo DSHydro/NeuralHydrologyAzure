@@ -1,0 +1,84 @@
+name: NeuralHydrology (CARAVAN) GPU
+
+permissions:
+  id-token: write
+  contents: read
+
+on:
+  workflow_dispatch:
+    inputs:
+      runner_type:
+        description: 'Select the runner type'
+        required: true
+        default: 'ubuntu-16cpu-x64'
+        type: choice
+        options:
+          - ubuntu-4cpu-x64
+          - ubuntu-8cpu-x64
+          - ubuntu-16cpu-x64
+
+jobs:
+  train:
+    environment: AIForGood
+    runs-on: ${{ github.event.inputs.runner_type }}
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: AZ CLI login
+        uses: azure/login@v2.3.0
+        with:
+          # NOTE: allow-no-subscripts needed if only giving scoped permissions to specific container
+          allow-no-subscriptions: true
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+
+      - name: Report Runner Specs
+        run: |
+          curl -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2017-12-01"
+          lscpu
+          free -h
+          df -h
+
+      - name: Report GPU specs
+        run: |
+          nvidia-smi
+
+      - uses: prefix-dev/setup-pixi@v0.9.3
+        with:
+            manifest-path: pyproject.toml
+            activate-environment: true
+            cache: true
+            frozen: true
+
+      - name: Mount Azure File Share
+        env:
+          AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
+        run: |
+          mkdir /tmp/data
+          sudo mount -t cifs //dshydro.file.core.windows.net/neurohydro /tmp/data -o vers=3.0,username=dshydro,password=$AZURE_STORAGE_ACCOUNT_KEY,dir_mode=0777,file_mode=0777,serverino
+
+      - name: Setup Tutorial Data
+        run: |
+            ln -s /tmp/data ./data
+
+      - name: Run Training
+        id: train
+        run: |
+            nh-run train --config-file config.yml
+            OUTDIR=`ls runs/`
+            echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
+
+      - name: Run Evaluation
+        run: |
+            nh-run evaluate --run-dir ./runs/${{ steps.train.outputs.outdir }}
+
+      - name: Visualize Results
+        run: |
+            python visualize.py ./runs/${{ steps.train.outputs.outdir }}
+
+      - name: Upload Results
+        uses: actions/upload-artifact@v5
+        with:
+            name: ${{ steps.train.outputs.outdir }}
+            path: ./runs/${{ steps.train.outputs.outdir }}
