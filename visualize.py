@@ -5,9 +5,9 @@ import pickle
 import sys
 
 run_dir = Path(sys.argv[1])
-output = run_dir / "test" / "model_epoch050" / "test_timeseries.png"
+output = run_dir / "test" / "model_epoch003" / "test_timeseries.png"
 
-with open(run_dir / "test" / "model_epoch050" / "test_results.p", "rb") as fp:
+with open(run_dir / "test" / "model_epoch003" / "test_results.p", "rb") as fp:
     results = pickle.load(fp)
 
 results.keys()
