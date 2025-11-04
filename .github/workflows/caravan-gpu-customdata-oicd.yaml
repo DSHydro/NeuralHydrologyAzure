@@ -1,4 +1,4 @@
-name: NeuralHydrology (CARAVAN) GPU
+name: NeuralHydrology (CARAVAN)
 
 permissions:
   id-token: write
@@ -16,6 +16,7 @@ on:
           - ubuntu-4cpu-x64
           - ubuntu-8cpu-x64
           - ubuntu-16cpu-x64
+          - T4GPU
 
 jobs:
   train:
@@ -40,9 +41,9 @@ jobs:
           free -h
           df -h
 
-      - name: Report GPU specs
-        run: |
-          nvidia-smi
+      # - name: Report GPU specs
+      #   run: |
+      #     nvidia-smi
 
       - uses: prefix-dev/setup-pixi@v0.9.3
         with:
@@ -65,7 +66,7 @@ jobs:
       - name: Run Training
         id: train
         run: |
-            nh-run train --config-file config.yml
+            nh-run train --config-file config.yml --gpu -1
             OUTDIR=`ls runs/`
             echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
 
