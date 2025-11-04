@@ -14,6 +14,7 @@ jobs:
 
       - name: Report Runner Specs
         run: |
+          curl -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2017-12-01"
           lscpu
           free -h
           df -h
