@@ -45,11 +45,11 @@ jobs:
               --name README.md \
               --file /tmp/README.md
 
-
       - name: Test mount Azure File Share
         env:
           AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
         run: |
+          mkdir /tmp/data
           sudo mount -t cifs //dshydro.file.core.windows.net/neurohydro /tmp/data -o vers=3.0,username=dshydro,password=$AZURE_STORAGE_ACCOUNT_KEY,dir_mode=0777,file_mode=0777,serverino
 
       - name: Test read/write data
