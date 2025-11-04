@@ -16,7 +16,7 @@ on:
           - ubuntu-4cpu-x64
           - ubuntu-8cpu-x64
           - ubuntu-16cpu-x64
-          - T4GPU
+          - ubuntu-t4gpu
 
 jobs:
   train:
