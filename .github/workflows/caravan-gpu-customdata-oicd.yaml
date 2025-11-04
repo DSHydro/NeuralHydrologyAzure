@@ -16,7 +16,9 @@ on:
           - ubuntu-4cpu-x64
           - ubuntu-8cpu-x64
           - ubuntu-16cpu-x64
-          - ubuntu-t4gpu
+          # NOT launching in westus2...
+          #- ubuntu-t4gpu
+          - T4GPU
 
 jobs:
   train:
@@ -26,13 +28,13 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: AZ CLI login
-        uses: azure/login@v2.3.0
-        with:
-          # NOTE: allow-no-subscripts needed if only giving scoped permissions to specific container
-          allow-no-subscriptions: true
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      # - name: AZ CLI login
+      #   uses: azure/login@v2.3.0
+      #   with:
+      #     # NOTE: allow-no-subscripts needed if only giving scoped permissions to specific container
+      #     allow-no-subscriptions: true
+      #     client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
 
       - name: Report Runner Specs
         run: |
@@ -42,7 +44,7 @@ jobs:
           df -h
 
       - name: Report GPU specs
-        if: github.event.inputs.runner_type == 'ubuntu-t4gpu'
+        if: github.event.inputs.runner_type == 'T4GPU'
         run: |
           nvidia-smi
 
@@ -67,7 +69,7 @@ jobs:
       - name: Run Training
         id: train
         run: |
-          if [ "${{ github.event.inputs.runner_type }}" == "ubuntu-t4gpu" ]; then
+          if [ "${{ github.event.inputs.runner_type }}" == "T4GPU" ]; then
             export N_GPUS=1
           else
             export N_GPUS=-1
