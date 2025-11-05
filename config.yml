@@ -36,8 +36,8 @@ static_attributes:
 - gwt_cm_sav
 - ero_kh_sav
 # - lit_cl_smj
-epochs: 3
-experiment_name: 2_basins_h128_do0.4_seq_length365_3epochs
+epochs: 30
+experiment_name: 10_basins_h128_do0.4_seq_length365_30epochs
 head: regression
 hidden_size: 128
 initial_forget_bias: 3
