@@ -14,7 +14,6 @@ run_dir = Path(sys.argv[1])
 model_files = list(run_dir.glob("model_epoch*.pt"))
 if not model_files:
     print(f"No model files found in {run_path}")
-    return
 
 # Pick the last model file
 last_model_file = max(model_files, key=lambda f: int(f.stem.split("model_epoch")[-1]))
