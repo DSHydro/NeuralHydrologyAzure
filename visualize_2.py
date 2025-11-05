@@ -14,8 +14,8 @@ for key in results.keys():
     # extract observations and simulations
     DS = results[key]['1D']['xr']
     print(DS)
-    qobs = DS['QObs(mm/d)_obs']
-    qsim = DS['QObs(mm/d)_sim']
+    qobs = DS['streamflow_obs']
+    qsim = DS['streamflow_sim']
     
     fig, ax = plt.subplots(figsize=(16,10))
     ax.plot(qobs['date'], qobs, label='Observed')
