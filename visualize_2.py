@@ -7,7 +7,22 @@ import sys
 run_dir = Path(sys.argv[1])
 # output = run_dir / "test" / "model_epoch003" / "test_timeseries.png"
 
-with open(run_dir / "test" / "model_epoch003" / "test_results.p", "rb") as fp:
+# with open(run_dir / "test" / "model_epoch003" / "test_results.p", "rb") as fp:
+#     results = pickle.load(fp)
+
+# Find all model files
+model_files = list(run_dir.glob("model_epoch*.pt"))
+if not model_files:
+    print(f"No model files found in {run_path}")
+    return
+
+# Pick the last model file
+last_model_file = max(model_files, key=lambda f: int(f.stem.split("model_epoch")[-1]))
+last_model_name = last_model_file.stem
+
+# Load test results
+results_path = run_dir / "test" / f"{last_model_name}" / "test_results.p"
+with open(results_path, "rb") as fp:
     results = pickle.load(fp)
 
 for key in results.keys():
