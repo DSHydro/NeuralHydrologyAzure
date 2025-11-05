@@ -39,7 +39,7 @@ for key in results.keys():
     ax.legend()
     fig.tight_layout()
 
-    output = run_dir / "test" / "model_epoch003" / f"{key}_test_timeseries.png"
+    output = run_dir / "test" / f"{last_model_name}" / f"{key}_test_timeseries.png"
     plt.savefig(output)
     plt.close(fig)
     print(f"Saved plot to {output}")
