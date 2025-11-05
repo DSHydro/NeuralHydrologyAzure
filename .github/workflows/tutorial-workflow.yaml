@@ -1,4 +1,4 @@
-name: NeuralHydrology (CARAVAN)
+name: NeuralHydrology Development Workflow
 
 permissions:
   id-token: write
@@ -19,6 +19,11 @@ on:
           # NOT launching in westus2...
           #- ubuntu-t4gpu
           - T4GPU
+      config_file:
+        description: 'config file in repository'
+        required: true
+        default: '1_basin.yml'
+        type: string
 
 jobs:
   train:
@@ -27,14 +32,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
-
-      # - name: AZ CLI login
-      #   uses: azure/login@v2.3.0
-      #   with:
-      #     # NOTE: allow-no-subscripts needed if only giving scoped permissions to specific container
-      #     allow-no-subscriptions: true
-      #     client-id: ${{ secrets.AZURE_CLIENT_ID }}
-      #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
 
       - name: Report Runner Specs
         run: |
@@ -51,7 +48,6 @@ jobs:
       - uses: prefix-dev/setup-pixi@v0.9.3
         with:
           manifest-path: pyproject.toml
-          activate-environment: true
           cache: true
           frozen: true
 
@@ -61,30 +57,32 @@ jobs:
         run: |
           mkdir /tmp/data
           sudo mount -t cifs //dshydro.file.core.windows.net/neurohydro /tmp/data -o vers=3.0,username=dshydro,password=$AZURE_STORAGE_ACCOUNT_KEY,dir_mode=0777,file_mode=0777,serverino
+          ls -l /tmp/data
 
       - name: Setup Data Path
         run: |
-            ln -s /tmp/data ./data
+          ln -s /tmp/data/tutorial/basin_dataset_public_v1p2 ./data/CAMELS_US/
 
       - name: Run Training
         id: train
         run: |
           if [ "${{ github.event.inputs.runner_type }}" == "T4GPU" ]; then
             export N_GPUS=1
+            pixi run train-gpu2 --config-file ${{ github.event.inputs.config_file }}
           else
             export N_GPUS=-1
+            pixi run train-cpu2 --config-file ${{ github.event.inputs.config_file }}
           fi
-          nh-run train --config-file config.yml --gpu $N_GPUS
           OUTDIR=`ls runs/`
           echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
 
       - name: Run Evaluation
         run: |
-          nh-run evaluate --run-dir ./runs/${{ steps.train.outputs.outdir }}
+          pixi run eval --run-dir ./runs/${{ steps.train.outputs.outdir }}
 
       - name: Visualize Results
         run: |
-          python visualize.py ./runs/${{ steps.train.outputs.outdir }}
+          pixi run visualize  ./runs/${{ steps.train.outputs.outdir }}
 
       - name: Upload Results
         uses: actions/upload-artifact@v5
