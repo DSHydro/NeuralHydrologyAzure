@@ -37,7 +37,7 @@ static_attributes:
 - ero_kh_sav
 # - lit_cl_smj
 epochs: 3
-experiment_name: 200_basins_h128_do0.4_seq_length365_3epochs
+experiment_name: 2_basins_h128_do0.4_seq_length365_3epochs
 head: regression
 hidden_size: 128
 initial_forget_bias: 3
