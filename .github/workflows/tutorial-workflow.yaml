@@ -10,7 +10,7 @@ on:
       runner_type:
         description: 'Select the runner type'
         required: true
-        default: 'ubuntu-16cpu-x64'
+        default: 'ubuntu-4cpu-x64'
         type: choice
         options:
           - ubuntu-4cpu-x64
