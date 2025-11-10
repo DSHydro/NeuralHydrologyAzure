@@ -1,4 +1,4 @@
-name: NeuralHydrology GPU Input Data
+name: NeuralHydrology GPU Input Data (CARAVAN)
 
 permissions:
   id-token: write
