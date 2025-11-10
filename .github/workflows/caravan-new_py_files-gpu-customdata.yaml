@@ -76,7 +76,7 @@ jobs:
       - name: Run Training/Evaluation/Visualize Results
         id: train
         run: |
-            pixi run train-gpu
+            pixi run train #train-gpu
             OUTDIR=`ls runs/`
             echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
 
