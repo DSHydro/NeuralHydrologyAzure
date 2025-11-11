@@ -73,15 +73,15 @@ seq_length: 365
 target_variables:
 - streamflow
 test_basin_file: basins.txt
-test_end_date: 30/08/2009
-test_start_date: 01/09/2007
+test_end_date: 31/08/2009
+test_start_date: 01/09/2005
 train_basin_file: basins.txt
 train_dir: ./runs/test_run
-train_end_date: 30/08/2005
+train_end_date: 31/08/2001
 train_start_date: 01/09/1989
 validate_every: 1
 validation_basin_file: basins.txt
-validation_end_date: 30/08/2007
-validation_start_date: 01/09/2005
+validation_end_date: 31/08/2005
+validation_start_date: 01/09/2001
 
 verbose: 0
