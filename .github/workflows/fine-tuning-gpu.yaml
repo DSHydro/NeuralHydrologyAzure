@@ -45,7 +45,7 @@ jobs:
         with:
             manifest-path: fine-tuning/pyproject.toml
             cache: true
-            frozen: true
+            # frozen: true  #do not want this in the first run
 
       - name: Test GPU support
         run: |
