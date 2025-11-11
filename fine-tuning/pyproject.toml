@@ -26,7 +26,7 @@ unzip-camels-data = 'unzip -q -n basin_timeseries_v1p2_metForcing_obsFlow.zip -d
 # train-cpu = "nh-run train --config-file config.yml --gpu -1" #1_basin.yml --gpu -1"
 # eval = "nh-run evaluate" #--run-dir runs/test_run_2010_222905
 # visualize = "python visualize_2.py" # runs/test_run_2010_222905
-train = "python run.py"
+train = "python finetuning.py"
 get-data = { cmd = 'wget --progress=dot:giga -nc "$INPUT_DATA_URL" -O input-data.zip'}
 unzip-data = 'unzip -q -n input-data.zip -d ./data/'
 # rename-data = 'mv ./data/basin_dataset_public_v1p2 ./data/CAMELS_US/'
