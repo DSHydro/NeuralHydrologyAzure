@@ -17,8 +17,8 @@ jobs:
   train-on-gpu:
     environment: AIForGood
     runs-on: T4GPU
-    # Cancel if runs take longer than 2 hours
-    timeout-minutes: 120
+    # Cancel if runs take longer than 6 hours
+    timeout-minutes: 360
 
     steps:
       - name: AZ CLI login
