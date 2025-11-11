@@ -101,5 +101,3 @@ jobs:
           path: |
             ./runs/${{ steps.train.outputs.outdir }}
             ./evaluation_plots/${{ steps.train.outputs.outdir }}
-            ./metric_plots/${{ steps.train.outputs.outdir }}
-            ./negative_values/${{ steps.train.outputs.outdir }}.txt
