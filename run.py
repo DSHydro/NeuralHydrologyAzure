@@ -366,7 +366,7 @@ def plot_metrics():
     run_path = latest_run
 
     # Create output directory for plots
-    output_dir = Path(f"../metric_plots/{run_path.name}")
+    output_dir = Path(PROJECT_ROOT) / f"metric_plots/{run_path.name}"
     output_dir.mkdir(parents=True, exist_ok=True)
 
     data = []
