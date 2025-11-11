@@ -89,8 +89,17 @@ jobs:
       #       pixi run visualize ./runs/${{ steps.train.outputs.outdir }}
 
       # note: names can't have slashes
+      # - name: Upload Results
+      #   uses: actions/upload-artifact@v5
+      #   with:
+      #       name: ${{ steps.train.outputs.outdir }}
+      #       path: ./runs/${{ steps.train.outputs.outdir }}
       - name: Upload Results
         uses: actions/upload-artifact@v5
         with:
-            name: ${{ steps.train.outputs.outdir }}
-            path: ./runs/${{ steps.train.outputs.outdir }}
+          name: results_${{ steps.train.outputs.outdir }}
+          path: |
+            ./runs/${{ steps.train.outputs.outdir }}
+            ./evaluation_plots/${{ steps.train.outputs.outdir }}
+            ./metric_plots/${{ steps.train.outputs.outdir }}
+            ./negative_values/${{ steps.train.outputs.outdir }}.txt
