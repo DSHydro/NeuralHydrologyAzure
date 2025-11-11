@@ -4,9 +4,9 @@
 experiment_name: cudalstm_531_basins_less_statics_finetuned
 
 # files to specify training, validation and test basins (relative to code root or absolute path)
-train_basin_file: UY_basins.txt
-validation_basin_file: UY_basins.txt
-test_basin_file: UY_basins.txt
+train_basin_file: finetune_basin.txt
+validation_basin_file: finetune_basin.txt
+test_basin_file: finetune_basin.txt
 
 # --- Training configuration -----------------------------------------------------------------------
 
@@ -22,4 +22,3 @@ epochs: 30
 finetune_modules:
 - head
 - lstm
-base_run_dir: /mmfs1/gscratch/stf/hernanqd/project/pruebas/Finetuning_camels_uy/runs/cudalstm_531_basins_less_statics_1610_192612 #/mmfs1/gscratch/stf/hernanqd/neuralhydrology/examples/06-Finetuning/runs/cudalstm_531_basins_1510_135036
