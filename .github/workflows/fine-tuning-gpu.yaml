@@ -47,6 +47,10 @@ jobs:
             cache: false #true
             # frozen: true  #do not want this in the first run
 
+      - name: Force Pixi GPU Environment Installation
+        run: |
+            pixi install -e gpu --no-cache
+
       - name: Test GPU support
         run: |
             pixi run -e gpu python -c "import torch; print(torch.cuda.is_available())"
