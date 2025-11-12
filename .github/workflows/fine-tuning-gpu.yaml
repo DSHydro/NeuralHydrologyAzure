@@ -73,10 +73,10 @@ jobs:
             unzip -q -n input-data.zip -d ./data/
             # mv ./data/basin_dataset_public_v1p2 ./data/CAMELS_US/
 
-      - name: Run Training/Evaluation/Visualize Results
+      - name: Run Pre-training/Fine-tuning
         id: train
         run: |
-            pixi run train #train-gpu
+            pixi run train_and_finetune #train 
             OUTDIR=`ls runs/`
             echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
 
