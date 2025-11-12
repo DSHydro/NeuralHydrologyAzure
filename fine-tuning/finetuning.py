@@ -67,7 +67,7 @@ print(f"Selected basin: {basin} with an NSE of {df.loc[df.index == basin, 'NSE']
 
 # -------- Fine-tuning --------
 print("\n=== Starting Fine-tuning ===")
-!cat finetune.yml
+# !cat finetune.yml
 
 finetune(Path("finetune.yml"))
 
