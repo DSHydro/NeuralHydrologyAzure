@@ -7,9 +7,9 @@ experiment_name: trial
 run_dir:
 
 # files to specify training, validation and test basins (relative to code root or absolute path)
-train_basin_file: caravan_and_UY_basins.txt
-validation_basin_file: caravan_and_UY_basins.txt
-test_basin_file: caravan_and_UY_basins.txt
+train_basin_file: fine-tuning/caravan_and_UY_basins.txt
+validation_basin_file: fine-tuning/caravan_and_UY_basins.txt
+test_basin_file: fine-tuning/caravan_and_UY_basins.txt
 
 # training, validation and test time periods (format = 'dd/mm/yyyy')
 train_start_date: '01/10/1989'
