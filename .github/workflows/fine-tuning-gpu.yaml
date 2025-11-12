@@ -76,7 +76,7 @@ jobs:
       - name: Run Pre-training/Fine-tuning
         id: train
         run: |
-            pixi run train_and_finetune #train 
+            pixi run -e gpu python fine-tuning/finetuning.py #train 
             OUTDIR=`ls runs/`
             echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
 
