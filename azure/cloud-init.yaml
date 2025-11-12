@@ -1,0 +1,10 @@
+    #cloud-config, runs as root
+    packages:
+      - unzip
+    runcmd:
+      - curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+      # - curl -fsSL https://pixi.sh/install.sh | sh
+      - mkdir /mnt/neurohydro
+      # NOTE: sometimes this is sdb1...
+      - mount /dev/sdc1 /mnt/neurohydro
+      - chown -R azureuser:azureuser /mnt
