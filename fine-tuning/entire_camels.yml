@@ -114,7 +114,7 @@ save_validation_results: True
 # # Path to CAMELS data set
 # data_dir: ../../data/CAMELS_US
 
-data_dir: ../../data
+data_dir: ./data
 dataset: generic
 
 # Forcing product [daymet, maurer, maurer_extended, nldas, nldas_extended]
