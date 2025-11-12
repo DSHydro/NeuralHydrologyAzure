@@ -26,7 +26,6 @@ unzip-camels-data = 'unzip -q -n basin_timeseries_v1p2_metForcing_obsFlow.zip -d
 # train-cpu = "nh-run train --config-file config.yml --gpu -1" #1_basin.yml --gpu -1"
 # eval = "nh-run evaluate" #--run-dir runs/test_run_2010_222905
 # visualize = "python visualize_2.py" # runs/test_run_2010_222905
-train_and_finetune = "python finetuning.py"
 get-data = { cmd = 'wget --progress=dot:giga -nc "$INPUT_DATA_URL" -O input-data.zip'}
 unzip-data = 'unzip -q -n input-data.zip -d ./data/'
 # rename-data = 'mv ./data/basin_dataset_public_v1p2 ./data/CAMELS_US/'
@@ -35,6 +34,7 @@ train-cpu2 = "nh-run train --gpu -1" # must specify config file
 [tool.pixi.feature.gpu.tasks]
 train-gpu = "nh-run train --config-file config.yml" #1_basin.yml"
 train-gpu2 = "nh-run train" # must specify config file
+train_and_finetune = "python finetuning.py"
 
 # minimal requirements
 # https://github.com/neuralhydrology/neuralhydrology/blob/874c05f8b793f366f97fb9cbc5c5e607eadf4b27/setup.py#L38
