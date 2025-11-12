@@ -12,7 +12,7 @@ from neuralhydrology.evaluation import get_tester, metrics
 
 
 # -------- Paths ---------
-CONFIG_PATH = Path("entire_camels.yml")
+CONFIG_PATH = Path("fine-tuning/entire_camels.yml")
 RUNS_DIR = Path("runs")
 PLOTS_DIR = Path("evaluation_plots")
 
