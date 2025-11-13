@@ -6,12 +6,12 @@ permissions:
 
 on:
   workflow_dispatch:
-    # inputs:
-    #   zipped_data_blob:
-    #     description: 'blob name in Azure Storage'
-    #     required: true
-    #     type: string
-    #     default: 'basin_timeseries_v1p2_metForcing_obsFlow.zip'
+    inputs:
+      zipped_data_blob:
+        description: 'blob name in Azure Storage'
+        required: true
+        type: string
+        default: 'basin_timeseries_v1p2_metForcing_obsFlow.zip'
 
 jobs:
   train-on-gpu:
@@ -63,33 +63,33 @@ jobs:
       #       path: input-data.zip
       #       key: ${{ runner.os }}-input-data
 
-      # - name: Download Data from Azure Blob Storage
-      #   run: |
-      #       az storage blob download \
-      #           --no-progress \
-      #           --auth-mode login \
-      #           --account-name dshydro\
-      #           --container-name accelerator2025 \
-      #           --name ${{ github.event.inputs.zipped_data_blob }} \
-      #           --file input-data.zip > /dev/null
-
-      # - name: Setup Tutorial Data
-      #   run: |
-      #       unzip -q -n input-data.zip -d ./data/
-      #       # mv ./data/basin_dataset_public_v1p2 ./data/CAMELS_US/
-
-      - name: Mount Azure File Share
-        env:
-          AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
+      - name: Download Data from Azure Blob Storage
         run: |
-          mkdir /tmp/data
-          sudo mount -t cifs //dshydro.file.core.windows.net/neurohydro /tmp/data -o vers=3.0,username=dshydro,password=$AZURE_STORAGE_ACCOUNT_KEY,dir_mode=0777,file_mode=0777,serverino,cache=strict,actimeo=60
-          ls -l /tmp/data
+            az storage blob download \
+                --no-progress \
+                --auth-mode login \
+                --account-name dshydro\
+                --container-name accelerator2025 \
+                --name ${{ github.event.inputs.zipped_data_blob }} \
+                --file input-data.zip > /dev/null
 
-      - name: Setup Data Path
+      - name: Setup Tutorial Data
         run: |
-          mkdir ./data
-          ln -s /tmp/data/caravan ./data
+            unzip -q -n input-data.zip -d ./data/
+            # mv ./data/basin_dataset_public_v1p2 ./data/CAMELS_US/
+
+      # - name: Mount Azure File Share
+      #   env:
+      #     AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
+      #   run: |
+      #     mkdir /tmp/data
+      #     sudo mount -t cifs //dshydro.file.core.windows.net/neurohydro /tmp/data -o vers=3.0,username=dshydro,password=$AZURE_STORAGE_ACCOUNT_KEY,dir_mode=0777,file_mode=0777,serverino,cache=strict,actimeo=60
+      #     ls -l /tmp/data
+
+      # - name: Setup Data Path
+      #   run: |
+      #     mkdir ./data
+      #     ln -s /tmp/data/caravan ./data
     
       - name: Run Pre-training/Fine-tuning
         id: train
