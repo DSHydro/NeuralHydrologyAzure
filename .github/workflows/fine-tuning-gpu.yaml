@@ -83,18 +83,13 @@ jobs:
           AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
         run: |
           mkdir /tmp/data
-          sudo mount -t cifs //dshydro.file.core.windows.net/neurohydro /tmp/data -o vers=3.0,username=dshydro,password=$AZURE_STORAGE_ACCOUNT_KEY,dir_mode=0777,file_mode=0777,serverino
+          sudo mount -t cifs //dshydro.file.core.windows.net/neurohydro /tmp/data -o vers=3.0,username=dshydro,password=$AZURE_STORAGE_ACCOUNT_KEY,dir_mode=0777,file_mode=0777,serverino,cache=strict,actimeo=60
           ls -l /tmp/data
 
-      # - name: Setup Data Path
-      #   run: |
-      #     mkdir ./data
-      #     ln -s /tmp/data/caravan ./data
-
-      - name: Copy Mounted Data Locally
+      - name: Setup Data Path
         run: |
-          mkdir -p ./data
-          cp -r /tmp/data/caravan ./data/
+          mkdir ./data
+          ln -s /tmp/data/caravan ./data
     
       - name: Run Pre-training/Fine-tuning
         id: train
