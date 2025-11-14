@@ -5,6 +5,7 @@ import pandas as pd
 import torch
 import matplotlib.pyplot as plt
 import xarray as xr
+import yaml
 
 from neuralhydrology.nh_run import start_run, eval_run, finetune
 from neuralhydrology.utils.config import Config
@@ -64,6 +65,22 @@ print(f"\nMedian NSE (validation period): {median_nse:.3f}")
 basin = df.loc[df["NSE"] < df["NSE"].median()].sample(n=1).index[0]
 
 print(f"Selected basin: {basin} with an NSE of {df.loc[df.index == basin, 'NSE'].values[0]:.3f}")
+
+
+# --- Update finetune.yml ---
+finetune_config_path = Path("fine-tuning/finetune.yml")
+
+with open(finetune_config_path, "r") as f:
+    finetune_cfg = yaml.safe_load(f)
+
+# Insert the correct run directory
+finetune_cfg["base_run_dir"] = f"./runs/{run_dir.name}"
+
+with open(finetune_config_path, "w") as f:
+    yaml.safe_dump(finetune_cfg, f, sort_keys=False)
+
+print(f"Updated finetune.yml with base_run_dir=./runs/{run_dir.name}")
+
 
 # -------- Fine-tuning --------
 print("\n=== Starting Fine-tuning ===")
