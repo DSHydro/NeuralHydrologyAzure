@@ -69,7 +69,7 @@ print(f"Selected basin: {basin} with an NSE of {df.loc[df.index == basin, 'NSE']
 print("\n=== Starting Fine-tuning ===")
 # !cat finetune.yml
 
-finetune(Path("finetune.yml"))
+finetune(Path("fine-tuning/finetune.yml"))
 
 # Automatically detect newest run (fine-tuned)
 finetune_dir = max(RUNS_DIR.glob("*/"), key=lambda d: d.stat().st_mtime)
