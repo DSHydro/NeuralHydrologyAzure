@@ -95,11 +95,12 @@ jobs:
         id: train
         run: |
             pixi run -e gpu python fine-tuning/finetuning.py #train 
-            OUTDIR=`ls runs/`
+            # OUTDIR=`ls runs/`
+            OUTDIR=$(ls -1 runs/ | tr -d '\n')  # remove any newlines
             
-            echo "outdir<<EOF" >> $GITHUB_OUTPUT
-            echo "$OUTDIR" >> $GITHUB_OUTPUT
-            echo "EOF" >> $GITHUB_OUTPUT
+            # echo "outdir<<EOF" >> $GITHUB_OUTPUT
+            # echo "$OUTDIR" >> $GITHUB_OUTPUT
+            # echo "EOF" >> $GITHUB_OUTPUT
             
             # echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
 
