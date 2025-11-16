@@ -48,6 +48,9 @@ jobs:
             cache: false #true
             # frozen: true  #do not want this in the first run
 
+      - name: Add pixi to PATH
+        run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+
       # make sure netCDF4 is installed
       - name: Ensure netCDF4 is installed in GPU environment
         run: |
