@@ -1,4 +1,4 @@
-name: NeuralHydrology - Fine-tuning GPU
+name: NeuralHydrology - Hyperparameter search
 
 permissions:
   id-token: write
