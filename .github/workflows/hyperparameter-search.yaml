@@ -14,6 +14,7 @@ on:
         default: 'basin_timeseries_v1p2_metForcing_obsFlow.zip'
 
 jobs:
+
   setup-computer-and-data:
     environment: AIForGood
     runs-on: T4GPU
@@ -90,8 +91,23 @@ jobs:
       #   run: |
       #     mkdir ./data
       #     ln -s /tmp/data/caravan ./data
-    
-      - name: Run Pre-training/Fine-tuning
+  
+  hyperparam-runs:
+    needs: setup-computer-and-data
+    runs-on: T4GPU
+    timeout-minutes: 360
+
+    strategy:
+      fail-fast: false
+      matrix:
+        hidden_size: [64, 96] #, 128, 156, 196, 224, 256]
+        output_dropout: [0.0, 0.25, 0.4, 0.5]
+        seq_length: [90, 180, 270, 365]
+        
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Run hyperparameter combination
         id: train
         run: |
             pixi run -e gpu python fine-tuning/finetuning.py #train 
@@ -118,6 +134,10 @@ jobs:
       #   with:
       #       name: ${{ steps.train.outputs.outdir }}
       #       path: ./runs/${{ steps.train.outputs.outdir }}
+  
+  summary-statistics:
+    needs: [setup-computer-and-data, runs]
+    steps:
       - name: Upload Results
         uses: actions/upload-artifact@v5
         with:
