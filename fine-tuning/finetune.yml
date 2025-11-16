@@ -23,13 +23,13 @@ finetune_modules:
 - head
 - lstm
 
-# # training, validation and test time periods (format = 'dd/mm/yyyy')
-# train_start_date: '01/09/1989'
-# train_end_date: '31/08/2001'
-# validation_start_date: '01/09/2001'
-# validation_end_date: '31/08/2205'
-# test_start_date: '01/09/2005'
-# test_end_date: '31/08/2009'
+# training, validation and test time periods (format = 'dd/mm/yyyy')
+train_start_date: '01/09/1989'
+train_end_date: '31/08/2001'
+validation_start_date: '01/09/2001'
+validation_end_date: '31/08/2205'
+test_start_date: '01/09/2005'
+test_end_date: '31/08/2009'
 
 # fixed seed, leave empty to use a random seed
 seed: 123
