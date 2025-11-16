@@ -26,6 +26,11 @@ ATTR_DIR     = DATA_DIR / "attributes"
 RUNS_DIR     = PROJECT_ROOT / "runs"
 PLOTS_DIR    = PROJECT_ROOT / "evaluation_plots"
 
+# -------- Paths ---------
+CONFIG_PATH = Path("fine-tuning/entire_camels.yml")
+RUNS_DIR = Path("runs")
+PLOTS_DIR = Path("evaluation_plots")
+
 def _ensure_dirs():
     for p in [DATA_DIR, TS_DIR, ATTR_DIR, RUNS_DIR, PLOTS_DIR]:
         p.mkdir(parents=True, exist_ok=True)
