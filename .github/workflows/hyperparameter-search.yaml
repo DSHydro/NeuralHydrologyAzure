@@ -110,7 +110,11 @@ jobs:
       - name: Run hyperparameter combination
         id: train
         run: |
-            pixi run -e gpu python fine-tuning/finetuning.py #train 
+          pixi run -e gpu python fine-tuning/hyperparameter-search.py \
+            --hidden_size ${{ matrix.hidden_size }} \
+            --output_dropout ${{ matrix.output_dropout }} \
+            --seq_length ${{ matrix.seq_length }}
+
             # OUTDIR=`ls runs/`
             OUTDIR=$(ls -1 runs/ | tr -d '\n')  # remove any newlines
             
@@ -135,13 +139,13 @@ jobs:
       #       name: ${{ steps.train.outputs.outdir }}
       #       path: ./runs/${{ steps.train.outputs.outdir }}
   
-  summary-statistics:
-    needs: [setup-computer-and-data, runs]
-    steps:
-      - name: Upload Results
-        uses: actions/upload-artifact@v5
-        with:
-          name: results_${{ steps.train.outputs.outdir }}
-          path: |
-            ./runs/${{ steps.train.outputs.outdir }}
-            ./evaluation_plots/${{ steps.train.outputs.outdir }}
+  # summary-statistics:
+  #   needs: [setup-computer-and-data, runs]
+  #   steps:
+  #     - name: Upload Results
+  #       uses: actions/upload-artifact@v5
+  #       with:
+  #         name: results_${{ steps.train.outputs.outdir }}
+  #         path: |
+  #           ./runs/${{ steps.train.outputs.outdir }}
+  #           ./evaluation_plots/${{ steps.train.outputs.outdir }}
