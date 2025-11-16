@@ -110,13 +110,13 @@ jobs:
       - name: Run hyperparameter combination
         id: train
         run: |
-          pixi run -e gpu python fine-tuning/hyperparameter-search.py \
+          pixi run -e gpu python hyparameter-search/hyperparameter-search.py \
             --hidden_size ${{ matrix.hidden_size }} \
             --output_dropout ${{ matrix.output_dropout }} \
             --seq_length ${{ matrix.seq_length }}
 
             # OUTDIR=`ls runs/`
-            OUTDIR=$(ls -1 runs/ | tr -d '\n')  # remove any newlines
+            # OUTDIR=$(ls -1 runs/ | tr -d '\n')  # remove any newlines
             
             # echo "outdir<<EOF" >> $GITHUB_OUTPUT
             # echo "$OUTDIR" >> $GITHUB_OUTPUT
