@@ -14,7 +14,7 @@ on:
         default: 'basin_timeseries_v1p2_metForcing_obsFlow.zip'
 
 jobs:
-  train-on-gpu:
+  setup-computer-and-data:
     environment: AIForGood
     runs-on: T4GPU
     # Cancel if runs take longer than 6 hours
