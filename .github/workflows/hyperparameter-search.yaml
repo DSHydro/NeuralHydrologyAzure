@@ -20,9 +20,7 @@ jobs:
     runs-on: T4GPU
     # Cancel if runs take longer than 6 hours
     timeout-minutes: 360
-    outputs:
-      data-path: ${{ steps.set-data-path.outputs.path }} #output for data path
-
+  
     steps:
       - name: AZ CLI login
         uses: azure/login@v2.3.0
@@ -55,13 +53,6 @@ jobs:
       #   run: |
       #       pixi run -e gpu pip install netCDF4
 
-      - name: Setup Data Path
-        id: set-data-path   # <-- NEW: step ID for output
-        run: |
-          mkdir -p ./data
-          ln -s /tmp/data/caravan ./data
-          echo "path=./data" >> $GITHUB_OUTPUT   #outputs data path
-
       - name: Test GPU support
         run: |
             pixi run -e gpu python -c "import torch; print(torch.cuda.is_available())"
@@ -73,20 +64,26 @@ jobs:
       #       path: input-data.zip
       #       key: ${{ runner.os }}-input-data
 
-      # - name: Download Data from Azure Blob Storage
-      #   run: |
-      #       az storage blob download \
-      #           --no-progress \
-      #           --auth-mode login \
-      #           --account-name dshydro\
-      #           --container-name accelerator2025 \
-      #           --name ${{ github.event.inputs.zipped_data_blob }} \
-      #           --file input-data.zip > /dev/null
+      - name: Download Data from Azure Blob Storage
+        run: |
+            az storage blob download \
+                --no-progress \
+                --auth-mode login \
+                --account-name dshydro\
+                --container-name accelerator2025 \
+                --name ${{ github.event.inputs.zipped_data_blob }} \
+                --file input-data.zip > /dev/null
 
-      # - name: Setup Tutorial Data
-      #   run: |
-      #       unzip -q -n input-data.zip -d ./data/
-      #       # mv ./data/basin_dataset_public_v1p2 ./data/CAMELS_US/
+      - name: Setup Tutorial Data
+        run: |
+            unzip -q -n input-data.zip -d ./data/
+            # mv ./data/basin_dataset_public_v1p2 ./data/CAMELS_US/
+
+      - name: Upload dataset as artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: caravan-dataset
+          path: ./data/caravan
 
       # - name: Mount Azure File Share
       #   env:
@@ -131,14 +128,6 @@ jobs:
         run: |
             pixi run -e gpu pip install netCDF4
 
-
-      # --- CHANGED: reuse dataset from setup job instead of remounting ---
-      - name: Use dataset from setup job
-        run: |
-          echo "Data path is ${{ needs.setup-computer-and-data.outputs.data-path }}"
-          mkdir -p ./data
-          ln -s ${{ needs.setup-computer-and-data.outputs.data-path }}/caravan ./data
-
       # - name: Mount Azure File Share
       #   env:
       #     AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
@@ -151,6 +140,12 @@ jobs:
       #   run: |
       #     mkdir ./data
       #     ln -s /tmp/data/caravan ./data
+
+      - name: Download dataset artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: caravan-dataset
+          path: ./data
 
       - name: Create runs directory
         run: mkdir -p runs
