@@ -116,6 +116,9 @@ jobs:
       - name: Add pixi to PATH
         run: echo "$HOME/.local/bin" >> $GITHUB_PATH
 
+      - name: Create runs directory
+        run: mkdir -p runs
+
       - name: Run hyperparameter combination
         id: train
         run: |
