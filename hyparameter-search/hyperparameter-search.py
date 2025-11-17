@@ -27,7 +27,7 @@ RUNS_DIR     = PROJECT_ROOT / "runs"
 PLOTS_DIR    = PROJECT_ROOT / "evaluation_plots"
 
 # -------- Paths ---------
-CONFIG_PATH = Path("fine-tuning/entire_camels.yml")
+CONFIG_PATH = Path("hyparameter-search/config.yml")
 RUNS_DIR = Path("runs")
 PLOTS_DIR = Path("evaluation_plots")
 
