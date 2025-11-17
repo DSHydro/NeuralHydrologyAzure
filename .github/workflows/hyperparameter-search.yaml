@@ -20,6 +20,8 @@ jobs:
     runs-on: T4GPU
     # Cancel if runs take longer than 6 hours
     timeout-minutes: 360
+    outputs:
+      data-path: ${{ steps.set-data-path.outputs.path }} #output for data path
 
     steps:
       - name: AZ CLI login
@@ -52,6 +54,13 @@ jobs:
       # - name: Ensure netCDF4 is installed in GPU environment
       #   run: |
       #       pixi run -e gpu pip install netCDF4
+
+      - name: Setup Data Path
+        id: set-data-path   # <-- NEW: step ID for output
+        run: |
+          mkdir -p ./data
+          ln -s /tmp/data/caravan ./data
+          echo "path=./data" >> $GITHUB_OUTPUT   #outputs data path
 
       - name: Test GPU support
         run: |
@@ -122,18 +131,26 @@ jobs:
         run: |
             pixi run -e gpu pip install netCDF4
 
-      - name: Mount Azure File Share
-        env:
-          AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
-        run: |
-          mkdir /tmp/data
-          sudo mount -t cifs //dshydro.file.core.windows.net/neurohydro /tmp/data -o vers=3.0,username=dshydro,password=$AZURE_STORAGE_ACCOUNT_KEY,dir_mode=0777,file_mode=0777,serverino,cache=strict,actimeo=60
-          ls -l /tmp/data
 
-      - name: Setup Data Path
+      # --- CHANGED: reuse dataset from setup job instead of remounting ---
+      - name: Use dataset from setup job
         run: |
-          mkdir ./data
-          ln -s /tmp/data/caravan ./data
+          echo "Data path is ${{ needs.setup-computer-and-data.outputs.data-path }}"
+          mkdir -p ./data
+          ln -s ${{ needs.setup-computer-and-data.outputs.data-path }}/caravan ./data
+
+      # - name: Mount Azure File Share
+      #   env:
+      #     AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
+      #   run: |
+      #     mkdir /tmp/data
+      #     sudo mount -t cifs //dshydro.file.core.windows.net/neurohydro /tmp/data -o vers=3.0,username=dshydro,password=$AZURE_STORAGE_ACCOUNT_KEY,dir_mode=0777,file_mode=0777,serverino,cache=strict,actimeo=60
+      #     ls -l /tmp/data
+
+      # - name: Setup Data Path
+      #   run: |
+      #     mkdir ./data
+      #     ln -s /tmp/data/caravan ./data
 
       - name: Create runs directory
         run: mkdir -p runs
