@@ -6,12 +6,12 @@ permissions:
 
 on:
   workflow_dispatch:
-    # inputs:
-    #   zipped_data_blob:
-    #     description: 'blob name in Azure Storage'
-    #     required: true
-    #     type: string
-    #     default: 'basin_timeseries_v1p2_metForcing_obsFlow.zip'
+    inputs:
+      zipped_data_blob:
+        description: 'blob name in Azure Storage'
+        required: true
+        type: string
+        default: 'basin_timeseries_v1p2_metForcing_obsFlow.zip'
 
 jobs:
 
