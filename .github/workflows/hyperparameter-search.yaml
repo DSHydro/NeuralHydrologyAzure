@@ -96,6 +96,7 @@ jobs:
     needs: setup-computer-and-data
     runs-on: T4GPU
     timeout-minutes: 360
+    environment: AIForGood
 
     strategy:
       fail-fast: false
