@@ -48,10 +48,10 @@ jobs:
             cache: false #true
             # frozen: true  #do not want this in the first run
 
-      # make sure netCDF4 is installed
-      - name: Ensure netCDF4 is installed in GPU environment
-        run: |
-            pixi run -e gpu pip install netCDF4
+      # # make sure netCDF4 is installed
+      # - name: Ensure netCDF4 is installed in GPU environment
+      #   run: |
+      #       pixi run -e gpu pip install netCDF4
 
       - name: Test GPU support
         run: |
@@ -116,6 +116,11 @@ jobs:
   
       - name: Add pixi to PATH
         run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      # make sure netCDF4 is installed
+      - name: Ensure netCDF4 is installed in GPU environment
+        run: |
+            pixi run -e gpu pip install netCDF4
 
       - name: Mount Azure File Share
         env:
