@@ -3,7 +3,7 @@ clip_gradient_norm: 1
 clip_targets_to_zero:
   - QObs(mm/d)
 # - streamflow
-data_dir: data_dir: ./data/CAMELS_US #./data
+data_dir: ./data/CAMELS_US #./data
 dataset: camels_us #generic
 device: cuda:0
 forcings: daymet
