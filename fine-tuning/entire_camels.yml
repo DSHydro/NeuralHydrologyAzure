@@ -54,13 +54,13 @@ head: regression
 # ----> General settings <----
 
 # Number of cell states of the LSTM
-hidden_size: 224
+hidden_size: 256
 
 # Initial bias value of the forget gate
 initial_forget_bias: 3
 
 # Dropout applied to the output of the LSTM
-output_dropout: 0.5
+output_dropout: 0.25
 
 output_activation: linear
 
@@ -90,7 +90,7 @@ clip_gradient_norm: 1
 predict_last_n: 1
 
 # Length of the input sequence
-seq_length: 90
+seq_length: 365
 
 # Number of parallel workers used in the data pipeline
 num_workers: 8
