@@ -2,8 +2,8 @@ batch_size: 256
 clip_gradient_norm: 1
 clip_targets_to_zero:
 - streamflow
-data_dir: ./data
-dataset: generic
+data_dir: data_dir: ./data/CAMELS_US #./data
+dataset: camels_us #generic
 device: cuda:0
 dynamic_inputs:
 - total_precipitation_sum
