@@ -37,3 +37,5 @@ seed: 123
 base_run_dir: ./runs/trial
 
 verbose: 0
+
+seq_length: 90
