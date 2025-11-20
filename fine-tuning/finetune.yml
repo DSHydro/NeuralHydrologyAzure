@@ -17,7 +17,7 @@ learning_rate:
     2: 5e-5
 
 # Number of training epochs
-epochs: 30
+epochs: 50
 
 finetune_modules:
 - head
@@ -38,4 +38,4 @@ base_run_dir: ./runs/trial
 
 verbose: 0
 
-seq_length: 45
+seq_length: 90
