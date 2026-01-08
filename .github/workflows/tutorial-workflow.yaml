@@ -1,0 +1,92 @@
+name: Development Workflow
+
+permissions:
+  id-token: write
+  contents: read
+
+on:
+  workflow_dispatch:
+    inputs:
+      runner_type:
+        description: 'Select the runner type'
+        required: true
+        default: 'ubuntu-4cpu-x64'
+        type: choice
+        options:
+          - ubuntu-4cpu-x64
+          - ubuntu-8cpu-x64
+          - ubuntu-16cpu-x64
+          # NOT launching in westus2...
+          #- ubuntu-t4gpu
+          - T4GPU
+      config_file:
+        description: 'config file in repository'
+        required: true
+        default: '1_basin.yml'
+        type: string
+
+jobs:
+  train:
+    environment: AIForGood
+    runs-on: ${{ github.event.inputs.runner_type }}
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Report Runner Specs
+        run: |
+          curl -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2017-12-01"
+          lscpu
+          free -h
+          df -h
+
+      - name: Report GPU specs
+        if: github.event.inputs.runner_type == 'T4GPU'
+        run: |
+          nvidia-smi
+
+      - uses: prefix-dev/setup-pixi@v0.9.3
+        with:
+          manifest-path: pyproject.toml
+          cache: true
+          frozen: true
+
+      - name: Mount Azure File Share
+        env:
+          AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
+        run: |
+          mkdir /tmp/data
+          sudo mount -t cifs //dshydro.file.core.windows.net/neurohydro /tmp/data -o vers=3.0,username=dshydro,password=$AZURE_STORAGE_ACCOUNT_KEY,dir_mode=0777,file_mode=0777,serverino
+          ls -l /tmp/data
+
+      - name: Setup Data Path
+        run: |
+          mkdir ./data
+          ln -s /tmp/data/tutorial/basin_dataset_public_v1p2 ./data/CAMELS_US
+
+      - name: Run Training
+        id: train
+        run: |
+          if [ "${{ github.event.inputs.runner_type }}" == "T4GPU" ]; then
+            export N_GPUS=1
+            pixi run train-gpu2 --config-file ${{ github.event.inputs.config_file }}
+          else
+            export N_GPUS=-1
+            pixi run train-cpu2 --config-file ${{ github.event.inputs.config_file }}
+          fi
+          OUTDIR=`ls runs/`
+          echo "outdir=$OUTDIR" >> $GITHUB_OUTPUT
+
+      - name: Run Evaluation
+        run: |
+          pixi run eval --run-dir ./runs/${{ steps.train.outputs.outdir }}
+
+      - name: Visualize Results
+        run: |
+          pixi run visualize  ./runs/${{ steps.train.outputs.outdir }}
+
+      - name: Upload Results
+        uses: actions/upload-artifact@v5
+        with:
+          name: ${{ steps.train.outputs.outdir }}
+          path: ./runs/${{ steps.train.outputs.outdir }}

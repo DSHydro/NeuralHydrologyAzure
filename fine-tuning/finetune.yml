@@ -1,0 +1,41 @@
+# --- Experiment configurations --------------------------------------------------------------------
+
+# experiment name, used as folder name
+experiment_name: trial
+
+# files to specify training, validation and test basins (relative to code root or absolute path)
+train_basin_file: fine-tuning/finetune_basin.txt
+validation_basin_file: fine-tuning/finetune_basin.txt
+test_basin_file: fine-tuning/finetune_basin.txt
+
+# --- Training configuration -----------------------------------------------------------------------
+
+# specify learning rates to use starting at specific epochs (0 is the initial learning rate)
+learning_rate:
+    # 0: 1e-5
+    0: 5e-4
+    2: 5e-5
+
+# Number of training epochs
+epochs: 50
+
+finetune_modules:
+- head
+- lstm
+
+# training, validation and test time periods (format = 'dd/mm/yyyy')
+train_start_date: '01/09/1989'
+train_end_date: '31/08/2001'
+validation_start_date: '01/09/2001'
+validation_end_date: '31/08/2205'
+test_start_date: '01/09/2005'
+test_end_date: '31/08/2009'
+
+# fixed seed, leave empty to use a random seed
+seed: 123
+
+base_run_dir: ./runs/trial
+
+verbose: 0
+
+seq_length: 90

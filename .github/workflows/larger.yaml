@@ -1,0 +1,21 @@
+name: TestLarge
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-large:
+    timeout-minutes: 5
+    #runs-on: ubuntu-latest-m
+    runs-on:
+      group: large
+      labels: ubuntu-8core
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Report Runner Specs
+        run: |
+          lscpu
+          free -h
+          df -h
