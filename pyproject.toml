@@ -52,6 +52,7 @@ tensorboard = ">=2.20.0,<3"
 "ruamel.yaml" = ">=0.18.15,<0.19"
 cloudpathlib = ">=0.23.0,<0.24"
 ruff = ">=0.14.1,<0.15"
+ipykernel = ">=7.1.0,<8"
 
 # [tool.pixi.target.linux-64.dependencies]
 # cuda = ">=13.0.2,<14"
