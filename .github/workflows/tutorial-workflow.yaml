@@ -31,7 +31,7 @@ jobs:
     runs-on: ${{ github.event.inputs.runner_type }}
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Report Runner Specs
         run: |
@@ -45,7 +45,7 @@ jobs:
         run: |
           nvidia-smi
 
-      - uses: prefix-dev/setup-pixi@v0.9.3
+      - uses: prefix-dev/setup-pixi@v0.9.4
         with:
           manifest-path: pyproject.toml
           cache: true
@@ -86,7 +86,7 @@ jobs:
           pixi run visualize  ./runs/${{ steps.train.outputs.outdir }}
 
       - name: Upload Results
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ steps.train.outputs.outdir }}
           path: ./runs/${{ steps.train.outputs.outdir }}
