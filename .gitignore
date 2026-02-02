@@ -2,6 +2,7 @@ configure_vnet.sh
 *.zip
 runs/
 data/
+precip_camelsus_vs_caravan/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
