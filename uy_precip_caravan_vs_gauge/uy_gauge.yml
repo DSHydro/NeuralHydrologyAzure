@@ -1,0 +1,186 @@
+# --- Experiment configurations --------------------------------------------------------------------
+
+# experiment name, used as folder name
+experiment_name: uy_gauges_basins__30_epochs_seq_63_hidden_256_dropout_04_fb_05_seed111
+
+# place to store run directory (if empty runs are stored in $cwd$/runs/)
+run_dir:
+
+# files to specify training, validation and test basins (relative to code root or absolute path)
+train_basin_file: uy_gauge.txt
+validation_basin_file: uy_gauge.txt
+test_basin_file: uy_gauge.txt
+
+# training, validation and test time periods (format = 'dd/mm/yyyy')
+# train_start_date: '01/10/1980' #'01/10/1989'
+# train_end_date: '30/09/2000' #'30/09/2001'
+# validation_start_date: '01/10/2000' #'01/10/2001'
+# validation_end_date: '30/09/2007' #'30/09/2005'
+# test_start_date: '01/10/2007' #'01/10/2005'
+# test_end_date: '30/09/2014' #'30/09/2009'
+
+train_start_date: '01/10/1999' #'01/10/1989'
+train_end_date: '30/09/2008' #'30/09/2001'
+validation_start_date: '01/10/1989' #'01/10/2001'
+validation_end_date: '30/09/1999' #'30/09/2005'
+
+# fixed seed, leave empty to use a random seed
+seed: 111
+
+# which GPU (id) to use [in format of cuda:0, cuda:1 etc, or cpu, mps or None]
+device: cuda:0
+
+# --- Validation configuration ---------------------------------------------------------------------
+
+# specify after how many epochs to perform validation
+validate_every: 1
+
+# specify how many random basins to use for validation
+# validate_n_random_basins: 531
+
+# specify which metrics to calculate during validation (see codebase.evaluation.metrics)
+metrics:
+- NSE
+- KGE
+- Alpha-NSE
+- Beta-NSE
+- Pearson-r
+- RMSE
+- MSE
+- Beta-KGE
+
+# --- Model configuration --------------------------------------------------------------------------
+
+# base model type [lstm, ealstm, cudalstm, embcudalstm, shortcutlstm, dropoutlstm, cudalstminitialh]
+# (has to match the if statement in modelzoo/__init__.py)
+model: cudalstm #ealstm
+
+# prediction head [regression, mdn, umal]. Define the head specific parameters below
+head: regression
+
+# ----> General settings <----
+
+# Number of cell states of the LSTM
+hidden_size: 256
+
+# Initial bias value of the forget gate
+initial_forget_bias: 5 #3
+
+# Dropout applied to the output of the LSTM
+output_dropout: 0.4
+
+output_activation: linear
+
+# --- Training configuration -----------------------------------------------------------------------
+
+# specify optimizer [Adam, Adadelta]
+optimizer: Adam
+
+# specify loss [MSE, NSE, RMSE, UMALLoss, MDNLoss]
+loss: NSE
+
+# specify learning rates to use starting at specific epochs (0 is the initial learning rate)
+learning_rate:
+    0: 0.001
+    # 1: 5e-4
+
+# Mini-batch size
+batch_size: 256
+
+# Number of training epochs
+epochs: 30
+
+# If True, clips norm of gradients
+clip_gradient_norm: 1
+
+# Defines which time steps are used to calculate the loss. Can't be larger than seq_length
+predict_last_n: 1
+
+# Length of the input sequence
+seq_length: 63
+
+# Number of parallel workers used in the data pipeline
+num_workers: 4 #7 #9
+
+# Log the training loss every n steps
+log_interval: 5
+
+# If true, writes logging results into tensorboard file
+log_tensorboard: True
+
+# Save model weights every n epochs
+save_weights_every: 1
+
+# Store the results of the validation to disk
+save_validation_results: True
+
+# --- Data configurations --------------------------------------------------------------------------
+
+# dataset: camels_us
+
+# # Path to CAMELS data set
+# data_dir: ../../../neuralhydrology/data/CAMELS_US
+
+data_dir: /inputs/filtered_data_gauge_precip #/inputs/basin_dataset_public_v1p2 ##filtered_data #filtered_data_gauge_precip
+dataset: generic
+
+# Forcing product [daymet, maurer, maurer_extended, nldas, nldas_extended]
+# can be either a list of forcings or a single forcing product
+# forcings:
+# - daymet
+
+# variables to use as time series input (names match the data file column headers)
+# Note: In case of multiple input forcing products, you have to append the forcing product behind
+# each variable. E.g. 'prcp(mm/day)' of the daymet product is 'prcp(mm/day)_daymet'
+dynamic_inputs:
+# - prcp(mm/day)
+# - srad(W/m2)
+# - tmax(C)
+# - tmin(C)
+
+- prcp_mm_day 
+- srad_W_m2 
+- tmax_C 
+- tmin_C 
+
+# - total_precipitation_sum
+# - temperature_2m_max
+# - temperature_2m_min
+# - surface_net_solar_radiation_mean
+
+# which columns to use as target
+target_variables:
+# - streamflow
+- QObs_mm_d
+# - QObs(mm/d)
+
+static_attributes:
+# - ele_mt_sav
+# - slp_dg_sav
+# - area
+# - snd_pc_sav
+# - slt_pc_sav
+# - cly_pc_sav
+# - pet_mean_FAO_PM
+# - aridity_FAO_PM
+# - frac_snow
+# - p_mean
+# - high_prec_dur
+# - low_prec_dur
+# # - high_prec_freq
+# # - low_prec_freq
+
+- elev_mean
+- slope_mean
+- area_gages2
+- sand_frac
+- silt_frac
+- clay_frac
+- p_mean
+- pet_mean
+- aridity
+# - frac_snow
+- high_prec_dur
+- low_prec_dur
+# - high_prec_freq
+# - low_prec_freq

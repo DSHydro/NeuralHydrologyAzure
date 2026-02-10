@@ -1,0 +1,62 @@
+batch_size: 256
+clip_gradient_norm: 1
+data_dir: /home/azureuser/sky_workdir/preparing_data/filtered_data_gauge_precip
+dataset: generic
+device: cuda:0
+dynamic_inputs:
+- prcp_mm_day
+- srad_W_m2
+- tmax_C
+- tmin_C
+epochs: 30
+experiment_name: 5_uy_gauges_30_epochs_seq_14_hidden_256_dropout_04_fb_05_seed111
+head: regression
+hidden_size: 256
+initial_forget_bias: 5
+learning_rate:
+  0: 0.001
+log_interval: 5
+log_tensorboard: true
+loss: NSE
+metrics:
+- NSE
+- KGE
+- Alpha-NSE
+- Beta-NSE
+- Pearson-r
+- RMSE
+- MSE
+- Beta-KGE
+model: cudalstm
+num_workers: 4
+optimizer: Adam
+output_activation: linear
+output_dropout: 0.4
+predict_last_n: 14
+run_dir: null
+save_validation_results: true
+save_weights_every: 1
+seed: 111
+seq_length: 14
+static_attributes:
+- elev_mean
+- slope_mean
+- area_gages2
+- sand_frac
+- silt_frac
+- clay_frac
+- p_mean
+- pet_mean
+- aridity
+- high_prec_dur
+- low_prec_dur
+target_variables:
+- QObs_mm_d
+test_basin_file: uy_gauge.txt
+train_basin_file: uy_gauge.txt
+train_end_date: 30/09/2008
+train_start_date: 01/10/1999
+validate_every: 1
+validation_basin_file: uy_gauge.txt
+validation_end_date: 30/09/1999
+validation_start_date: 01/10/1989
