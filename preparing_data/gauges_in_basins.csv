@@ -1,0 +1,25 @@
+lat,lon,Estacion,Departamento,Tipo,Adm,geometry,index_right,basin_source
+-33.46,-55.63,Capilla del Sauce,Florida,Convencional,INUMET,POINT (-55.63 -33.46),0,durazno
+-32.51,-57.16,Cañada Grande,Rio Negro,Convencional,INUMET,POINT (-57.16 -32.51),8,paso_de_los_mellizos
+-32.13,-54.89,Cuchilla Caragauta N,Tacuarembó,Convencional,INUMET,POINT (-54.89 -32.13),4,paso_aguiar
+-31.77,-55.69,Cuchilla del Ombu,Tacuarembó,Convencional,INUMET,POINT (-55.69 -31.77),10,paso_del_borracho
+-31.71,-56.0,El Molino,Tacuarembó,Convencional,INUMET,POINT (-56 -31.71),15,tacuarembo
+-33.52,-56.41,Goñi,Florida,Convencional,INUMET,POINT (-56.41 -33.52),0,durazno
+-31.57,-55.47,Minas de Corrales,Rivera,Convencional,INUMET,POINT (-55.47 -31.57),2,paso_de_la_compania
+-31.57,-55.47,Minas de Corrales,Rivera,Convencional,INUMET,POINT (-55.47 -31.57),10,paso_del_borracho
+-31.6,-54.97,Moirones,Rivera,Convencional,INUMET,POINT (-54.97 -31.6),11,picada_de_coelho
+-33.5,-57.79,Palmitas,Soriano,Convencional,INUMET,POINT (-57.79 -33.5),5,bequelo
+-32.55,-57.39,Paso de la Cruz_RN,Rio Negro,Convencional,INUMET,POINT (-57.39 -32.55),13,paso_de_las_piedras_rn
+-33.48,-56.15,Polanco del Yi,Florida,Convencional,INUMET,POINT (-56.15 -33.48),0,durazno
+-33.18,-55.69,Rossell y Rius,Durazno,Convencional,INUMET,POINT (-55.69 -33.18),0,durazno
+-33.33,-55.62,Sarandi del Yi,Durazno,Convencional,INUMET,POINT (-55.62 -33.33),0,durazno
+-33.72,-56.32,Sarandi Grande,Florida,Convencional,INUMET,POINT (-56.32 -33.72),0,durazno
+-31.19,-55.77,Tranqueras,Rivera,Convencional,INUMET,POINT (-55.77 -31.19),7,paso_manuel_diaz
+-31.19,-55.77,Tranqueras,Rivera,Convencional,INUMET,POINT (-55.77 -31.19),10,paso_del_borracho
+-31.77,-54.69,Vichadero,Rivera,Convencional,INUMET,POINT (-54.69 -31.77),4,paso_aguiar
+-31.77,-54.69,Vichadero,Rivera,Convencional,INUMET,POINT (-54.69 -31.77),12,paso_mazangano
+-30.89,-55.54,Rivera,Rivera,Convencional,INUMET,POINT (-55.54 -30.89),,paso_de_las_piedras
+-32.61,-54.59,Cerro de las Cuentas,Cerro Largo,Convencional,INUMET,POINT (-54.59 -32.61),,fraile_muerto
+-33.33,-55.62,Cerro Chato,Durazno,Convencional,INUMET,POINT (-55.62 -33.33),,sarandi_del_yi
+-31.77,-54.69,Vichadero,Rivera,Convencional,INUMET,POINT (-54.69 -31.77),,paso_de_las_toscas
+-31.71,-56.0,El Molino,Tacuarembó,Convencional,INUMET,POINT (-56 -31.71),,paso_baltasar
