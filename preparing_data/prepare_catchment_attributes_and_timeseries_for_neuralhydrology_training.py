@@ -61,7 +61,7 @@ area_file= Path("/inputs/data_updated_2/attributes/attributes_other.csv")
 attributes_files= Path("/inputs/data_updated_2/attributes")
 
 # Define output structure required by neuralhydrology
-data_dir = Path("./preparing_data/filtered_data")
+data_dir = Path("./preparing_data/filtered_data_2")
 time_series_dir = data_dir / "time_series"
 attributes_dir = data_dir / "attributes"
 
@@ -79,9 +79,9 @@ variable_mapping = {
 }
 
 # Read streamflow data
-train_data = pd.read_csv("./preparing_data/processed_data/highqual_with_short_estimated/train_data.csv", index_col=0, parse_dates=True)
-val_data = pd.read_csv("./preparing_data/processed_data/highqual_with_short_estimated/validation_data.csv", index_col=0, parse_dates=True)
-test_data = pd.read_csv("./preparing_data/processed_data/highqual_with_short_estimated/test_data.csv", index_col=0, parse_dates=True)
+train_data = pd.read_csv("./preparing_data/processed_data_2/highqual_with_short_estimated/train_data.csv", index_col=0, parse_dates=True)
+val_data = pd.read_csv("./preparing_data/processed_data_2/highqual_with_short_estimated/validation_data.csv", index_col=0, parse_dates=True)
+test_data = pd.read_csv("./preparing_data/processed_data_2/highqual_with_short_estimated/test_data.csv", index_col=0, parse_dates=True)
 
 # Combine all streamflow data
 streamflow_data = pd.concat([train_data, val_data, test_data]).sort_index()
