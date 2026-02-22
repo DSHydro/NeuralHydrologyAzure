@@ -37,7 +37,7 @@ names_path=Path("/inputs/data_updated_2/attributes/attributes_other.csv")
 names_file = pd.read_csv(names_path)
 
 # Create directories for processed data and plots
-output_dir = Path("./preparing_data/processed_data/highqual_with_short_estimated")
+output_dir = Path("./preparing_data/processed_data_2/highqual_with_short_estimated")
 plots_dir = output_dir / "streamflow_series"
 # omitted_plots_dir = output_dir / "streamflow_series" / "omitted_gauges"
 validation_dir = output_dir / "data_validation"
