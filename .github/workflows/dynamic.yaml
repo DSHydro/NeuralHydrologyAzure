@@ -19,7 +19,7 @@ jobs:
     runs-on: ${{ github.event.inputs.runner_type }}
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Report Runner Specs
         run: |
