@@ -1,0 +1,14 @@
+experiment_name: finetune_UY_basins_seq_180
+train_basin_file: basins.txt
+validation_basin_file: basins.txt
+test_basin_file: basins.txt
+epochs: 30
+seq_length: 180 #270
+# batch_size: 128
+# output_dropout: 0.25
+finetune_modules:
+- head
+- lstm
+# learning_rate:
+#     0: 0.0005
+base_run_dir: ./runs/caravan_and_uy_chirps_and_mswep_154_precip_seq_270_30_epochs_hidden_256_dropout_04_fb_05_seed111_0203_030221

@@ -1,0 +1,64 @@
+batch_size: 256
+clip_gradient_norm: 1
+data_dir: ./data
+dataset: generic
+device: cuda:0
+dynamic_inputs:
+- surface_net_solar_radiation_mean
+- temperature_2m_max
+- temperature_2m_min
+- total_precipitation_sum
+- chirps_precipitation
+- mswep_precipitation
+epochs: 30
+experiment_name: precip_total_precipitation_sum_chirps_precipitation_mswep_precipitation
+head: regression
+hidden_size: 256
+initial_forget_bias: 5
+learning_rate:
+  0: 0.001
+log_interval: 5
+log_tensorboard: true
+loss: NSE
+metrics:
+- NSE
+- KGE
+- Alpha-NSE
+- Beta-NSE
+- Pearson-r
+- RMSE
+- MSE
+- Beta-KGE
+model: cudalstm
+num_workers: 4
+optimizer: Adam
+output_activation: linear
+output_dropout: 0.4
+predict_last_n: 1
+run_dir: null
+save_validation_results: true
+save_weights_every: 1
+seed: 111
+seq_length: 270
+static_attributes:
+- ele_mt_sav
+- slp_dg_sav
+- area
+- snd_pc_sav
+- slt_pc_sav
+- cly_pc_sav
+- pet_mean_FAO_PM
+- aridity_FAO_PM
+- p_mean
+- high_prec_dur
+- low_prec_dur
+target_variables:
+- streamflow
+test_basin_file: basins_without_snow.txt
+train_basin_file: basins_without_snow.txt
+train_end_date: 30/09/2008
+train_start_date: 01/10/1999
+validate_every: 1
+validation_basin_file: basins_without_snow.txt
+validation_end_date: 30/09/1999
+validation_start_date: 01/10/1989

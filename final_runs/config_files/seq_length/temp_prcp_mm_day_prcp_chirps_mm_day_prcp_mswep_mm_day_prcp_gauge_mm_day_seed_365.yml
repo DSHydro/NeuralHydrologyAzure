@@ -1,0 +1,65 @@
+batch_size: 256
+clip_gradient_norm: 1
+data_dir: ./data
+dataset: generic
+device: cuda:0
+dynamic_inputs:
+- srad_W_m2
+- tmax_C
+- tmin_C
+- prcp_mm_day
+- prcp_chirps_mm_day
+- prcp_mswep_mm_day
+- prcp_gauge_mm_day
+epochs: 30
+experiment_name: new_wy_precip_prcp_mm_day_prcp_chirps_mm_day_prcp_mswep_mm_day_prcp_gauge_mm_day_seq_length_365
+head: regression
+hidden_size: 256
+initial_forget_bias: 5
+learning_rate:
+  0: 0.001
+log_interval: 5
+log_tensorboard: true
+loss: NSE
+metrics:
+- NSE
+- KGE
+- Alpha-NSE
+- Beta-NSE
+- Pearson-r
+- RMSE
+- MSE
+- Beta-KGE
+model: cudalstm
+num_workers: 4
+optimizer: Adam
+output_activation: linear
+output_dropout: 0.4
+predict_last_n: 1
+run_dir: null
+save_validation_results: true
+save_weights_every: 1
+seed: 111
+seq_length: 365
+static_attributes:
+- elev_mean
+- slope_mean
+- area_gages2
+- sand_frac
+- silt_frac
+- clay_frac
+- p_mean
+- pet_mean
+- aridity
+- high_prec_dur
+- low_prec_dur
+target_variables:
+- QObs_mm_d
+test_basin_file: basins.txt
+train_basin_file: basins.txt
+train_end_date: 31/08/2008
+train_start_date: 01/09/1999
+validate_every: 1
+validation_basin_file: basins.txt
+validation_end_date: 31/08/1999
+validation_start_date: 01/09/1989
