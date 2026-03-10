@@ -216,3 +216,6 @@ __marimo__/
 # pixi environments
 .pixi/*
 !.pixi/config.toml
+extending_caravan/caravan_shapefiles/camelscl/camelscl_basin_shapes.shp
+extending_caravan/caravan_shapefiles/hysets/hysets_basin_shapes.shp
+*.shp
