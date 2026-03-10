@@ -4,6 +4,7 @@ runs/
 data/
 precip_camelsus_vs_caravan/
 */runs/
+ensemble_streamflow_prediction/hydrographs_esp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
