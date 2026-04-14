@@ -782,7 +782,7 @@ def util_MasterRecessionCurve(Q, flow_section,
 
 def sig_BaseflowRecessionK(Q, t,
                             recession_length=15,
-                            n_start=0,
+                            n_start=1,
                             eps=0.0,
                             start_of_recession='baseflow',
                             fit_method='nonparametric_analytic',
@@ -866,10 +866,15 @@ def sig_BaseflowRecessionK(Q, t,
     mrc_t = MRC[:, 0]
     mrc_q = MRC[:, 1]
 
-    valid = mrc_q > 0
+    # valid = mrc_q > 0
 
     # fit_start_time = 15.0
     # valid = (mrc_q > 0) & (mrc_t >= fit_start_time)
+
+    fit_start_time = 15
+    fit_end_time = 25
+
+    valid = (mrc_q > 0) & (mrc_t >= fit_start_time) & (mrc_t <= fit_end_time)
 
     if valid.sum() < 2:
         return np.nan, 3, 'Error: Not enough valid MRC points for fitting. ' + error_str
