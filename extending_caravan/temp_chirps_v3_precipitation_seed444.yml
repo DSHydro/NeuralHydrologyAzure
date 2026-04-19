@@ -7,10 +7,9 @@ dynamic_inputs:
 - temperature_2m_max
 - temperature_2m_min
 - surface_net_solar_radiation_mean
-- mswep_precipitation
-- chirps_precipitation
+- chirps_v3_precipitation
 epochs: 30
-experiment_name: mswep_precipitation_chirps_precipitation_seq_270_1_epochs_30_hidden_256_dropout_04_fb_5_seed444
+experiment_name: chirps_v3_precipitation_seq_270_1_epochs_30_hidden_256_dropout_04_fb_5_seed444
 head: regression
 hidden_size: 256
 initial_forget_bias: 5
