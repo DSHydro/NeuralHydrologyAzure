@@ -1,0 +1,12 @@
+Hola Hernán
+
+Hemos seleccionado este conjunto de estaciones y período por su completitud y su calidad, tienen controles básicos de calidad te sugiero que le corras algún control más
+según sean tus necesidades.
+
+Algunas estaciones arrancan después de 1981 de forma completa (hay datos más atrás pero están sin digitar de foirma completa y para no enviarte tan incompletas resolvimos este período)
+
+Por otra parte
+Traza; es precipitación igual o inferior a 0.1 mm
+
+Te hemos dejado en los archivos la columna que dice "comentario" no solemos compartir esta información (manejalo con reserva) pero en ella es que puedes encontrar en "Dato Faltante"
+Te dejamos en otro archivo las coordenadas de las estaciones.
