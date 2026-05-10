@@ -1,0 +1,73 @@
+batch_size: 256
+clip_gradient_norm: 1
+commit_hash: 56ad377
+data_dir: ../../data
+dataset: generic
+device: cuda:0
+dynamic_inputs:
+- total_precipitation_sum
+- temperature_2m_max
+- temperature_2m_min
+- surface_net_solar_radiation_mean
+epochs: 30
+experiment_name: caravan_camels_30_epochs_seq_270_hidden_256_dropout_04_fb_05_seed111
+head: regression
+hidden_size: 256
+img_log_dir: 
+  /mmfs1/gscratch/stf/hernanqd/project/pruebas/replicating_results/runs/caravan_camels_30_epochs_seq_270_hidden_256_dropout_04_fb_05_seed111_0712_110319/img_log
+initial_forget_bias: 5
+learning_rate:
+  0: 0.001
+log_interval: 5
+log_tensorboard: true
+loss: NSE
+metrics:
+- NSE
+- KGE
+- Alpha-NSE
+- Beta-NSE
+- Pearson-r
+- RMSE
+- MSE
+- Beta-KGE
+model: cudalstm
+num_workers: 9
+number_of_basins: 531
+optimizer: Adam
+output_activation: linear
+output_dropout: 0.4
+package_version: 1.12.0
+predict_last_n: 1
+run_dir: 
+  /mmfs1/gscratch/stf/hernanqd/project/pruebas/replicating_results/runs/caravan_camels_30_epochs_seq_270_hidden_256_dropout_04_fb_05_seed111_0712_110319
+save_validation_results: true
+save_weights_every: 1
+seed: 111
+seq_length: 270
+static_attributes:
+- ele_mt_sav
+- slp_dg_sav
+- area
+- snd_pc_sav
+- slt_pc_sav
+- cly_pc_sav
+- pet_mean_FAO_PM
+- aridity_FAO_PM
+- frac_snow
+- p_mean
+- high_prec_dur
+- low_prec_dur
+- high_prec_freq
+- low_prec_freq
+target_variables:
+- streamflow
+test_basin_file: 531_basin.txt
+train_basin_file: 531_basin.txt
+train_dir: 
+  /mmfs1/gscratch/stf/hernanqd/project/pruebas/replicating_results/runs/caravan_camels_30_epochs_seq_270_hidden_256_dropout_04_fb_05_seed111_0712_110319/train_data
+train_end_date: 30/09/2008
+train_start_date: 01/10/1999
+validate_every: 1
+validation_basin_file: 531_basin.txt
+validation_end_date: 30/09/1999
+validation_start_date: 01/10/1989

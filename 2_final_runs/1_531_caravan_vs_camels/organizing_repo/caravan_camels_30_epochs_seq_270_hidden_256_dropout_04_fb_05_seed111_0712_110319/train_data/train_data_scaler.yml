@@ -1,0 +1,80 @@
+attribute_means:
+  area: 480.4273220093616
+  aridity_FAO_PM: 0.8901324387570623
+  cly_pc_sav: 17.649180419659093
+  ele_mt_sav: 744.2754273419279
+  frac_snow: 0.1514036705969868
+  high_prec_dur: 1.2142230235404898
+  high_prec_freq: 0.05175672306214689
+  low_prec_dur: 4.274181421468927
+  low_prec_freq: 0.6360775004519774
+  p_mean: 3.1143172610922787
+  pet_mean_FAO_PM: 2.4052589838041434
+  slp_dg_sav: 73.34637485570447
+  slt_pc_sav: 38.559360491844174
+  snd_pc_sav: 43.85014626761058
+attribute_stds:
+  area: 474.8682762322507
+  aridity_FAO_PM: 0.4944438542547019
+  cly_pc_sav: 5.525611289764438
+  ele_mt_sav: 789.2230061095065
+  frac_snow: 0.18684104501802964
+  high_prec_dur: 0.10531458566040841
+  high_prec_freq: 0.008484452721021708
+  low_prec_dur: 1.6549102071219903
+  low_prec_freq: 0.0780246398259078
+  p_mean: 0.9960923228542329
+  pet_mean_FAO_PM: 0.5428067618711776
+  slp_dg_sav: 64.4027712705735
+  slt_pc_sav: 5.896683301771226
+  snd_pc_sav: 9.395465766057173
+xarray_feature_scale:
+  coords: {}
+  attrs: {}
+  dims: {}
+  data_vars:
+    streamflow:
+      dims: []
+      attrs: {}
+      data: 3.620560884475708
+    surface_net_solar_radiation_mean:
+      dims: []
+      attrs: {}
+      data: 79.5991439819336
+    temperature_2m_max:
+      dims: []
+      attrs: {}
+      data: 11.033134460449219
+    temperature_2m_min:
+      dims: []
+      attrs: {}
+      data: 10.423497200012207
+    total_precipitation_sum:
+      dims: []
+      attrs: {}
+      data: 6.777685165405273
+xarray_feature_center:
+  coords: {}
+  attrs: {}
+  dims: {}
+  data_vars:
+    streamflow:
+      dims: []
+      attrs: {}
+      data: 1.5002732276916504
+    surface_net_solar_radiation_mean:
+      dims: []
+      attrs: {}
+      data: 153.7572479248047
+    temperature_2m_max:
+      dims: []
+      attrs: {}
+      data: 16.014680862426758
+    temperature_2m_min:
+      dims: []
+      attrs: {}
+      data: 6.365175247192383
+    total_precipitation_sum:
+      dims: []
+      attrs: {}
+      data: 2.9373939037323
