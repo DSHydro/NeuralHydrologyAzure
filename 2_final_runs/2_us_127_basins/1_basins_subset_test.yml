@@ -7,9 +7,9 @@ experiment_name: caravan_chirps_154_precip_seq_270_30_epochs_hidden_256_dropout_
 run_dir:
 
 # files to specify training, validation and test basins (relative to code root or absolute path)
-train_basin_file: basins_subset_test.txt
-validation_basin_file: basins_subset_test.txt
-test_basin_file: basins_subset_test.txt
+train_basin_file: 1_basins_subset_test.txt
+validation_basin_file: 1_basins_subset_test.txt
+test_basin_file: 1_basins_subset_test.txt
 
 # training, validation and test time periods (format = 'dd/mm/yyyy')
 # train_start_date: '01/10/1980' #'01/10/1989'
@@ -23,8 +23,8 @@ train_start_date: '01/10/1999' #'09/10/1999' # #'01/10/1989'
 train_end_date: '30/09/2008' #'28/09/2008' #'28/09/2008' #'22/09/2008' #' #'30/09/2001'
 validation_start_date: '01/10/1989' #'01/10/2001'
 validation_end_date: '30/09/1999' #'30/09/1999' #'08/10/1999' #'30/09/2005'
-test_start_date: 01/10/2009
-test_end_date: 30/09/2019
+test_start_date: 01/10/2008
+test_end_date: 30/09/2014
 
 # fixed seed, leave empty to use a random seed
 seed: 111
@@ -129,7 +129,7 @@ save_validation_results: True
 # # Path to CAMELS data set
 # data_dir: ../../../neuralhydrology/data/CAMELS_US
 
-data_dir: ../extended_dataset/data #../precip_camelsus_vs_caravan/caravan_with_camels_precip #/inputs/basin_dataset_public_v1p2 ##filtered_data #filtered_data_gauge_precip
+data_dir: ../../1_preparing_data/2_us_127_basins/data #../precip_camelsus_vs_caravan/caravan_with_camels_precip #/inputs/basin_dataset_public_v1p2 ##filtered_data #filtered_data_gauge_precip
 dataset: generic
 
 # Forcing product [daymet, maurer, maurer_extended, nldas, nldas_extended]
