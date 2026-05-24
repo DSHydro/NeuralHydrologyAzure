@@ -37,7 +37,6 @@ Assembles the final multi-product NetCDF dataset by merging the original CARAVAN
   - `camels_precipitation` — from CAMELS Daymet basin-mean forcing TXT files
   - `chirps_precipitation` — from the CSVs produced by notebook 1
   - `mswep_precipitation` — from the CSVs produced by notebook 2
-- Uses an atomic write pattern (`.tmp` → rename) to avoid corrupt files on failure
 
 **Outputs** → `./data/time_series/`
 - `<gauge_id>.nc` — one NetCDF per basin with 8 variables: `streamflow`, `total_precipitation_sum` (ERA5), `temperature_2m_max`, `temperature_2m_min`, `surface_net_solar_radiation_mean`, `era5land_total_precipitation`, `camels_precipitation`, `chirps_precipitation`, `mswep_precipitation`
