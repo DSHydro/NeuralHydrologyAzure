@@ -19,7 +19,7 @@ jobs:
           df -h
 
       - name: AZ CLI login
-        uses: azure/login@v2.3.0
+        uses: azure/login@v3.0.0
         with:
           # NOTE: allow-no-subscripts needed if only giving scoped permissions to specific container
           allow-no-subscriptions: true
@@ -28,7 +28,7 @@ jobs:
 
       # NOTE: 'auth-mode login' needed to avoid warnings and errors about not finding credentials
       - name: List Files in Container
-        uses: azure/cli@v2
+        uses: azure/cli@v3
         with:
           azcliversion: latest
           inlineScript: |
@@ -55,7 +55,7 @@ jobs:
 
       - name: List all Storage Containers
         continue-on-error: true
-        uses: azure/cli@v2
+        uses: azure/cli@v3
         with:
           azcliversion: latest
           inlineScript: |
