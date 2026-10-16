@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+    <Document id="1">
+        <Placemark id="3">
+            <name>Paso de las Piedras</name>
+            <Point id="2">
+                <coordinates>-55.584818,-31.530457,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="5">
+            <name>Paso Manuel Diaz</name>
+            <Point id="4">
+                <coordinates>-55.686583,-31.529667,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="7">
+            <name>Paso Baltasar</name>
+            <Point id="6">
+                <coordinates>-55.769773,-31.728558,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="9">
+            <name>Paso del Borracho</name>
+            <Point id="8">
+                <coordinates>-55.471139,-31.876083,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="11">
+            <name>Paso de Coelho</name>
+            <Point id="10">
+                <coordinates>-55.367013,-32.033324,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="13">
+            <name>Paso de las Toscas</name>
+            <Point id="12">
+                <coordinates>-55.023917,-32.158194,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="15">
+            <name>Paso Aguiar</name>
+            <Point id="14">
+                <coordinates>-54.831056,-32.28625,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="17">
+            <name>Paso Mazangano</name>
+            <Point id="16">
+                <coordinates>-54.6675,-32.110028,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="19">
+            <name>Fraile Muerto</name>
+            <Point id="18">
+                <coordinates>-54.52975,-32.519056,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="21">
+            <name>Paso de las Piedras (R3)</name>
+            <Point id="20">
+                <coordinates>-57.518278,-32.83625,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="23">
+            <name>Bequelo</name>
+            <Point id="22">
+                <coordinates>-57.941222,-33.244444,0.0</coordinates>
+            </Point>
+        </Placemark>
+    </Document>
+</kml>
